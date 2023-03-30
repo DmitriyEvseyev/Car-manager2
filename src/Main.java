@@ -21,8 +21,7 @@ public class Main {
         // fixme similar to previous
         DAOManager.createTable(connection);
 
-        DAOCar daoCar = new DAOCar((Connection) DAOManager.getInstance().getDaoCar());
-        IDGenerator idGeneratorXXX = IDGenerator.getInstance(daoCar.maxIdCar());
+        IDGenerator idGeneratorXXX = IDGenerator.getInstance(DAOManager.getInstance().maxIdCar());
 
         // fixme what is maxid - why it places here?
         CLIView cliView = CLIView.getInstance(idGeneratorXXX);

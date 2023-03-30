@@ -119,18 +119,7 @@ public class DAOCar implements DAOInterface {
         return list;
     }
 
-    public Integer maxIdCar() throws SQLException {
-        Integer MaxIdCar = 0;
-        String sql = "SELECT MAX(ID) FROM CAR";
 
-        try (PreparedStatement stm = connection.prepareStatement(sql)) {
-            ResultSet rs = stm.executeQuery();
-            while (rs.next()) {
-                MaxIdCar = rs.getInt("MAX");
-            }
-        }
-        return MaxIdCar;
-    }
 
     public boolean isCarExist (Integer Id) throws SQLException {
         boolean carExist;
