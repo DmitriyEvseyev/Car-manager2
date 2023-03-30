@@ -126,7 +126,7 @@ public class DAOCar implements DAOInterface {
         try (PreparedStatement stm = connection.prepareStatement(sql)) {
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                MaxIdCar = rs.getInt("Id");
+                MaxIdCar = rs.getInt("MAX");
             }
         }
         return MaxIdCar;
