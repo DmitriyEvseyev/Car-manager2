@@ -51,7 +51,7 @@ public class Controller {
     }
 
     // todo SQLException should be catched and message should go to the NotFoundException
-    public void removeCar(Integer id) throws NotFoundException,  DeleteCarExeption {
+    public void removeCar(Integer id) throws NotFoundException, DeleteCarExeption {
         //dao
         try {
             if (!daoCar.isCarExist(id)) {
@@ -68,9 +68,6 @@ public class Controller {
         // dao
         Car updateCar;
         try {
-            if (!daoCar.isCarExist(id)) {
-                throw new NotFoundException();
-            }
             updateCar = Car.builder()
                     .id(id)
                     .name(Name)

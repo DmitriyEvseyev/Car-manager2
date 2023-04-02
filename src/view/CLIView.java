@@ -152,7 +152,9 @@ public class CLIView {
         Integer id = Integer.valueOf(ID);
 
         try {
-            if (controller.getDaoCar().isCarExist(id)) {
+            if (!controller.getDaoCar().isCarExist(id)) {
+                throw new NotFoundException();
+            }
                 System.out.print("Enter name: ");
                 String name = scanner.nextLine();
                 Date date;
@@ -178,10 +180,10 @@ public class CLIView {
                 }
                 try {
                     controller.updateCar(id, name, date, color, isAfterCrash);
+                    System.out.println("Changes have been made");
                 } catch (UpdateCarException e) {
                     System.out.println("UpdateCarException");
                 }
-            }
         } catch (NotFoundException e) {
             System.out.println("there is no such car in the database, try again");
         } catch (SQLException e) {
