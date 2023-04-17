@@ -54,6 +54,7 @@ public class DAOManager  {
         }
         System.out.println("Table created successfully");
     }
+
     public Integer maxIdCar() throws SQLException {
         Integer MaxIdCar = 0;
         String sql = "SELECT MAX(ID) FROM CAR";

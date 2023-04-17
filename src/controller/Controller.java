@@ -1,9 +1,7 @@
 package controller;
 
 import daomanager.DAOManager;
-import exceptions.DeleteCarExeption;
-import exceptions.NotFoundException;
-import exceptions.UpdateCarException;
+import exceptions.*;
 import model.Car;
 import dao.DAOCar;
 
@@ -32,25 +30,30 @@ public class Controller {
         this.daoCar = DAOManager.getInstance().getDaoCar();
     }
 
-    // todo read comments for updateCar method about exception
-    public List<Car> getAllCars() throws SQLException {
+    public List<Car> getAllCars() throws GetAllCarExeption {
         // dao
         // return unmodifiable list of cars because we can change some car only via addCar method or getCar and set required fields
-        return Collections.unmodifiableList(new ArrayList<>(daoCar.getAll()));
+        try {
+            return Collections.unmodifiableList(new ArrayList<>(daoCar.getAll()));
+        } catch (SQLException e) {
+            throw new GetAllCarExeption(e.getMessage());
+        }
     }
 
-    // todo read comments for updateCar method about exception
-    public void addCar(Car car) throws SQLException {
+    public void addCar(Car car) throws AddCarExeption {
         // dao
-        daoCar.createCar(
-                car.getId(),
-                car.getName(),
-                car.getDate(),
-                car.getColor(),
-                car.isAfterCrash());
+        try {
+            daoCar.createCar(
+                    car.getId(),
+                    car.getName(),
+                    car.getDate(),
+                    car.getColor(),
+                    car.isAfterCrash());
+        } catch (SQLException e) {
+            throw new AddCarExeption(e.getMessage());
+        }
     }
 
-    // todo SQLException should be catched and message should go to the NotFoundException
     public void removeCar(Integer id) throws NotFoundException, DeleteCarExeption {
         //dao
         try {
@@ -59,11 +62,10 @@ public class Controller {
             }
             daoCar.delete(daoCar.read(id));
         } catch (SQLException e) {
-            throw new DeleteCarExeption();
+            throw new DeleteCarExeption(e.getMessage());
         }
     }
 
-    // todo need to throw custom exception - UpdateCarException
     public void updateCar(Integer id, String Name, Date date, String color, boolean isAfterCrash) throws NotFoundException, UpdateCarException {
         // dao
         Car updateCar;
@@ -77,7 +79,7 @@ public class Controller {
                     .build();
             daoCar.update(updateCar);
         } catch (SQLException e) {
-            throw new UpdateCarException();
+            throw new UpdateCarException(e.getMessage());
         }
     }
 }

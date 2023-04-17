@@ -119,8 +119,6 @@ public class DAOCar implements DAOInterface {
         return list;
     }
 
-
-
     public boolean isCarExist (Integer Id) throws SQLException {
         boolean carExist;
         String sqlExistCar = "SELECT * FROM CAR WHERE id = ?";

@@ -2,9 +2,7 @@ package view;
 
 import controller.Controller;
 import controller.IDGenerator;
-import exceptions.DeleteCarExeption;
-import exceptions.NotFoundException;
-import exceptions.UpdateCarException;
+import exceptions.*;
 import model.Car;
 
 import java.sql.SQLException;
@@ -35,7 +33,7 @@ public class CLIView {
         this.idGenerator = Idgen;
     }
 
-    public void run() throws NotFoundException, SQLException {
+    public void run()  {
         int menuAction = -1;
 
         System.out.println("***** Car daomanager.Manager *****");
@@ -79,21 +77,21 @@ public class CLIView {
         return Integer.valueOf(input);
     }
 
-    private void showCars() throws SQLException {
+    private void showCars() {
         System.out.println("Cars:\n");
-        // some magic via lambda
-        for (Car i : controller.getAllCars()) {
-            System.out.println(i);
+        try {
+            for (Car i : controller.getAllCars()) {
+                System.out.println(i);
+            }
+            controller.getAllCars();
+            System.out.print("Press \"Enter\" for return to the main menu...\n");
+            scanner.nextLine();
+        } catch (GetAllCarExeption e) {
+            System.out.println("GetAll (SQL) error");
         }
-
-        controller.getAllCars();
-
-        System.out.print("Press \"Enter\" for return to the main menu...\n");
-        scanner.nextLine();
     }
 
-    // todo work with exceptions
-    private void createCar() throws SQLException {
+    private void createCar() {
         System.out.println("\nNew car:");
         System.out.print("Enter name: ");
         String name = scanner.nextLine();
@@ -118,19 +116,22 @@ public class CLIView {
         if ("yes".equalsIgnoreCase(crashes)) {
             isAfterCrash = true;
         }
-        controller.addCar(
-                Car.builder()
-                        .id(idGenerator.getId())
-                        .name(name)
-                        .date(date)
-                        .color(color)
-                        .isAfterCrash(isAfterCrash)
-                        .build()
-        );
-        System.out.println("\nInfo: Car has been added!");
+        try {
+            controller.addCar(
+                    Car.builder()
+                            .id(idGenerator.getId())
+                            .name(name)
+                            .date(date)
+                            .color(color)
+                            .isAfterCrash(isAfterCrash)
+                            .build()
+            );
+            System.out.println("\nInfo: Car has been added!");
+        } catch (AddCarExeption e) {
+            System.out.println("Add (SQL) error");
+        }
     }
 
-    // todo similar with exceptions
     public void deleteCar() {
         System.out.println("Which car to sell?");
         System.out.print("Enter id: ");
@@ -145,7 +146,6 @@ public class CLIView {
         }
     }
 
-    // todo similar with exceptions
     public void modifyCar() {
         System.out.print("Choose a car. Enter id: ");
         String ID = scanner.nextLine();
@@ -155,35 +155,35 @@ public class CLIView {
             if (!controller.getDaoCar().isCarExist(id)) {
                 throw new NotFoundException();
             }
-                System.out.print("Enter name: ");
-                String name = scanner.nextLine();
-                Date date;
-                while (true) {
-                    System.out.print("Enter date (yyyy-mm-dd): ");
-                    String productionDate = scanner.nextLine();
-                    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
-                    try {
-                        date = formatter.parse(productionDate);
-                        System.out.println("Correct date");
-                        break;
-                    } catch (ParseException e) {
-                        System.out.println("Input is not a date, continue");
-                    }
-                }
-                System.out.print("Change the color:");
-                String color = scanner.nextLine();
-                System.out.println("Does car have crashes (yes/no)?");
-                String crashes = scanner.nextLine();
-                boolean isAfterCrash = false;
-                if ("yes".equalsIgnoreCase(crashes)) {
-                    isAfterCrash = true;
-                }
+            System.out.print("Enter name: ");
+            String name = scanner.nextLine();
+            Date date;
+            while (true) {
+                System.out.print("Enter date (yyyy-mm-dd): ");
+                String productionDate = scanner.nextLine();
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
                 try {
-                    controller.updateCar(id, name, date, color, isAfterCrash);
-                    System.out.println("Changes have been made");
-                } catch (UpdateCarException e) {
-                    System.out.println("UpdateCarException");
+                    date = formatter.parse(productionDate);
+                    System.out.println("Correct date");
+                    break;
+                } catch (ParseException e) {
+                    System.out.println("Input is not a date, continue");
                 }
+            }
+            System.out.print("Change the color:");
+            String color = scanner.nextLine();
+            System.out.println("Does car have crashes (yes/no)?");
+            String crashes = scanner.nextLine();
+            boolean isAfterCrash = false;
+            if ("yes".equalsIgnoreCase(crashes)) {
+                isAfterCrash = true;
+            }
+            try {
+                controller.updateCar(id, name, date, color, isAfterCrash);
+                System.out.println("Changes have been made");
+            } catch (UpdateCarException e) {
+                System.out.println("UpdateCarException");
+            }
         } catch (NotFoundException e) {
             System.out.println("there is no such car in the database, try again");
         } catch (SQLException e) {
