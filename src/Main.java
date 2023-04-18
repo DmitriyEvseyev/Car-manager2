@@ -3,14 +3,18 @@ import daomanager.DAOManager;
 import view.CLIView;
 import java.sql.SQLException;
 
-import static daomanager.DAOManager.connection;
-
 public class Main {
-   public static void main(String[] args) throws SQLException {
-        DAOManager.connection();
-        DAOManager.createTable(connection);
+    public static void main(String[] args) {
+        DAOManager.getInstance();
+        Integer StartId = 0;
 
-        IDGenerator idGeneratorXXX = IDGenerator.getInstance(DAOManager.getInstance().maxIdCar());
+        try {
+            StartId = DAOManager.getInstance().maxIdCar();
+        } catch (SQLException e) {
+            System.out.println("Id not found");
+        }
+
+        IDGenerator idGeneratorXXX = IDGenerator.getInstance(StartId);
 
         CLIView cliView = CLIView.getInstance(idGeneratorXXX);
         cliView.run();
