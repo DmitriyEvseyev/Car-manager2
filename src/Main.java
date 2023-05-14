@@ -11,7 +11,7 @@ public class Main {
         try {
             StartId = DAOManager.getInstance().maxIdCar();
         } catch (SQLException e) {
-            System.out.println("Id not found");
+            System.out.println("Id not found. " + e.getMessage());
         }
 
         IDGenerator idGeneratorXXX = IDGenerator.getInstance(StartId);

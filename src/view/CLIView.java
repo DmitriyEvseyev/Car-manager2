@@ -26,14 +26,13 @@ public class CLIView {
         return instance;
     }
 
-    // todo create custom exception ApplicationViewStartupFailedException
     private CLIView(IDGenerator Idgen) {
         this.scanner = new Scanner(System.in);
         this.controller = Controller.getInstance();
         this.idGenerator = Idgen;
     }
 
-    public void run()  {
+    public void run() {
         int menuAction = -1;
 
         System.out.println("***** Car daomanager.Manager *****");
@@ -87,7 +86,7 @@ public class CLIView {
             System.out.print("Press \"Enter\" for return to the main menu...\n");
             scanner.nextLine();
         } catch (GetAllCarExeption e) {
-            System.out.println("GetAll (SQL) error");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -105,7 +104,7 @@ public class CLIView {
                 System.out.println("Correct date");
                 break;
             } catch (ParseException e) {
-                System.out.println("Input is not a date, continue");
+                System.out.println(e.getMessage());
             }
         }
         System.out.print("Enter color: ");
@@ -128,7 +127,7 @@ public class CLIView {
             );
             System.out.println("\nInfo: Car has been added!");
         } catch (AddCarExeption e) {
-            System.out.println("Add (SQL) error");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -142,7 +141,7 @@ public class CLIView {
         } catch (NotFoundException e) {
             System.out.println("there is no such car in the database, try again");
         } catch (DeleteCarExeption e) {
-            System.out.println("Delete (SQL) error");
+            System.out.println(e.getMessage());
         }
     }
 
@@ -167,7 +166,7 @@ public class CLIView {
                     System.out.println("Correct date");
                     break;
                 } catch (ParseException e) {
-                    System.out.println("Input is not a date, continue");
+                    System.out.println(e.getMessage());
                 }
             }
             System.out.print("Change the color:");
@@ -182,12 +181,12 @@ public class CLIView {
                 controller.updateCar(id, name, date, color, isAfterCrash);
                 System.out.println("Changes have been made");
             } catch (UpdateCarException e) {
-                System.out.println("UpdateCarException");
+                System.out.println("UpdateCarException. " + e.getMessage());
             }
         } catch (NotFoundException e) {
             System.out.println("there is no such car in the database, try again");
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 }

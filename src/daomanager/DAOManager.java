@@ -29,7 +29,6 @@ public class DAOManager {
                     "postgres", "5b6eu5");
             this.daoCar = DAOCar.getInstance(connection);
         } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
@@ -60,8 +59,8 @@ public class DAOManager {
                 MaxIdCar = rs.getInt("MAX");
             }
         }
-        System.out.println("MaxIdCar " +MaxIdCar);
-        return MaxIdCar+1;
+        System.out.println("MaxIdCar " + MaxIdCar);
+        return MaxIdCar + 1;
     }
 }
 

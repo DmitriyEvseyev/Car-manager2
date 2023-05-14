@@ -64,7 +64,7 @@ public class DAOCar implements DAOInterface {
 
     @Override
     public void delete(Car Car) throws SQLException {
-        String sql = "DELETE FROM CAR WHERE Id = ?";
+        String sql = "DELETE FROM CAR WHERE  Id = ?";
         try (PreparedStatement stm = connection.prepareStatement(sql);) {
             stm.setInt(1, Car.getId());
             stm.executeUpdate();
@@ -121,7 +121,7 @@ public class DAOCar implements DAOInterface {
 
     public boolean isCarExist (Integer Id) throws SQLException {
         boolean carExist;
-        String sqlExistCar = "SELECT * FROM CAR WHERE id = ?";
+        String sqlExistCar = "SELECT * FROM CAR   id = ?";
         try (PreparedStatement stm = connection.prepareStatement(sqlExistCar)) {
             stm.setInt(1, Id);
             ResultSet rs = stm.executeQuery();

@@ -9,7 +9,6 @@ import java.sql.SQLException;
 import java.util.*;
 
 public class Controller {
-    // part of singleton pattern. read more: https://habr.com/ru/post/129494/
     private static Controller instance;
     private DAOCar daoCar;
 
@@ -25,18 +24,16 @@ public class Controller {
         return daoCar;
     }
 
-    // constructor is private because singleton pattern
     private Controller() {
         this.daoCar = DAOManager.getInstance().getDaoCar();
     }
 
     public List<Car> getAllCars() throws GetAllCarExeption {
         // dao
-        // return unmodifiable list of cars because we can change some car only via addCar method or getCar and set required fields
         try {
             return Collections.unmodifiableList(new ArrayList<>(daoCar.getAll()));
         } catch (SQLException e) {
-            throw new GetAllCarExeption(e.getMessage());
+            throw new GetAllCarExeption(String.format("Error: %s. Code: %s", e.getMessage(), e.getSQLState()));
         }
     }
 
@@ -50,7 +47,7 @@ public class Controller {
                     car.getColor(),
                     car.isAfterCrash());
         } catch (SQLException e) {
-            throw new AddCarExeption(e.getMessage());
+            throw new AddCarExeption(String.format("Error: %s. Code: %s", e.getMessage(), e.getSQLState()));
         }
     }
 
@@ -62,11 +59,11 @@ public class Controller {
             }
             daoCar.delete(daoCar.read(id));
         } catch (SQLException e) {
-            throw new DeleteCarExeption(e.getMessage());
+            throw new DeleteCarExeption(String.format("Error: %s. Code: %s", e.getMessage(), e.getSQLState()));
         }
     }
 
-    public void updateCar(Integer id, String Name, Date date, String color, boolean isAfterCrash) throws NotFoundException, UpdateCarException {
+    public void updateCar(Integer id, String Name, Date date, String color, boolean isAfterCrash) throws  UpdateCarException {
         // dao
         Car updateCar;
         try {
@@ -79,7 +76,7 @@ public class Controller {
                     .build();
             daoCar.update(updateCar);
         } catch (SQLException e) {
-            throw new UpdateCarException(e.getMessage());
+            throw new UpdateCarException(String.format("Error: %s. Code: %s", e.getMessage(), e.getSQLState()));
         }
     }
 }
