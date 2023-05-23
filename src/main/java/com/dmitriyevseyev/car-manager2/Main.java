@@ -1,6 +1,7 @@
 import controller.IDGenerator;
 import daomanager.DAOManager;
 import view.CLIView;
+
 import java.sql.SQLException;
 
 public class Main {

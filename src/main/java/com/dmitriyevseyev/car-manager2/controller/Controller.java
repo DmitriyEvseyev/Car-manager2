@@ -1,10 +1,9 @@
 package controller;
 
 import daomanager.DAOManager;
-import exceptions.*;
 import model.Car;
 import dao.DAOCar;
-
+import exceptions.*;
 import java.sql.SQLException;
 import java.util.*;
 

@@ -2,9 +2,8 @@ package view;
 
 import controller.Controller;
 import controller.IDGenerator;
-import exceptions.*;
 import model.Car;
-
+import exceptions.*;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
