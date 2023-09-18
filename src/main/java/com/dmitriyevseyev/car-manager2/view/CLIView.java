@@ -134,6 +134,7 @@ public class CLIView {
         System.out.println("Which car to sell?");
         System.out.print("Enter id: ");
         Integer id = Integer.valueOf(scanner.nextLine());
+
         try {
             controller.removeCar(id);
             System.out.println("the car has been deleted:  " + id);
