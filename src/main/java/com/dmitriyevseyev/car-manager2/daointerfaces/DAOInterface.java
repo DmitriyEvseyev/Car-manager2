@@ -13,7 +13,7 @@ public interface DAOInterface {
 
     public void update(Car Car) throws SQLException;
 
-    public void delete(Car Car) throws SQLException;
+    public void delete(Integer id) throws SQLException;
 
     public List<Car> getAll() throws SQLException;
 

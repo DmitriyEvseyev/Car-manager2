@@ -56,7 +56,7 @@ public class Controller {
             if (!daoCar.isCarExist(id)) {
                 throw new NotFoundException();
             }
-            daoCar.delete(daoCar.read(id));
+            daoCar.delete(id);
         } catch (SQLException e) {
             throw new DeleteCarExeption(String.format("Error: %s. Code: %s", e.getMessage(), e.getSQLState()));
         }
