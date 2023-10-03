@@ -17,7 +17,6 @@ public class Main {
 
         IDGenerator idGeneratorXXX = IDGenerator.getInstance(StartId);
 
-        CLIView cliView = CLIView.getInstance(idGeneratorXXX);
-        cliView.run();
+        CLIView.run(args);
     }
 }
