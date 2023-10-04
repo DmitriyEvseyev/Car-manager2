@@ -24,7 +24,7 @@ public class CLIView extends javafx.application.Application {
         stage.setTitle("Car manager");
         stage.setScene(new Scene(root));
         stage.show();
-        RefreshHelper.getInstance().getController().refresh();
+        RefreshHelper.getInstance().getControllerView().refresh();
     }
 }
 

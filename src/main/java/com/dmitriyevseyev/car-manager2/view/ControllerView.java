@@ -1,16 +1,24 @@
 package view;
 
+import controller.Controller;
+import exceptions.DeleteCarExeption;
+import exceptions.NotFoundException;
+import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -50,6 +58,7 @@ public class ControllerView implements Initializable {
         deleteCar.setDisable(true);
         modifyCar.setDisable(true);
         rows.clear();
+        ListFx.getInstance().getCarFxList().clear();
 
         int length = Converter.getInstance().convertCartoCarFx().size();
 
@@ -62,7 +71,7 @@ public class ControllerView implements Initializable {
             });
         }
         tableview.setItems(FXCollections.observableArrayList(rows));
-        view.RefreshHelper.getInstance().setController(this);
+        view.RefreshHelper.getInstance().setControllerView(this);
     }
 
     private void selectedCheckBox() {
@@ -97,22 +106,28 @@ public class ControllerView implements Initializable {
         isAfterCrashColumn.setCellValueFactory(new PropertyValueFactory("isAfterCrash"));
         actionColumn.setCellValueFactory(new PropertyValueFactory("checkBox"));
 
-        RefreshHelper.getInstance().setController(this);
+        RefreshHelper.getInstance().setControllerView(this);
     }
 
     @FXML
     private void deleteSelectedRows(ActionEvent actionEvent) {
-        /*int length = tableview.getItems().size();
-        for (int i = 0; i < length && length > 0; i++) {
+        int length = tableview.getItems().size();
+        for (Integer i = 0; i < length && length > 0; i++) {
             if (tableview.getItems().get(i).getCheckBox().isSelected()) {
-                tableview.getItems().remove(i);
-                ListCar.getInstance().getCarList().remove(i);
-                --i;
-                --length;
+                try {
+                    Controller.getInstance().removeCar(tableview.getItems().get(i).getId());
+                    tableview.getItems().remove(i);
+                    Converter.getInstance().convertCartoCarFx().remove(i);
+                    --i;
+                    --length;
+                } catch (NotFoundException e) {
+                    System.out.println(e.getMessage());
+                } catch (DeleteCarExeption e) {
+                    System.out.println(e.getMessage());
+                }
             }
-            //selectedCheckBox();
         }
-        refresh(); */
+        refresh();
     }
 
     @FXML
@@ -147,10 +162,9 @@ public class ControllerView implements Initializable {
 
     @FXML
     private void addRow() {
-        /*
         try {
             // Загружаем fxml-файл и создаём новую сцену для всплывающего диалогового окна.
-            FXMLLoader loader = new FXMLLoader(Application.class.getResource("addCar.fxml"));
+            FXMLLoader loader = new FXMLLoader(CLIView.class.getResource("addCar.fxml"));
             Scene scene = new Scene(loader.load());
 
             Stage dialogStage = new Stage();
@@ -165,7 +179,7 @@ public class ControllerView implements Initializable {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-        refresh(); */
+        refresh();
     }
 }
 

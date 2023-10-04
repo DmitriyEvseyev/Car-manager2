@@ -14,12 +14,11 @@ public class RefreshHelper {
         return instance;
     }
 
-
-    public ControllerView getController() {
+    public ControllerView getControllerView() {
         return controllerView;
     }
 
-    public void setController(ControllerView controllerView) {
+    public void setControllerView (ControllerView controllerView) {
         this.controllerView = controllerView;
     }
 }
