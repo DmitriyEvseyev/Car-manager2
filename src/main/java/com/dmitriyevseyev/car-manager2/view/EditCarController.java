@@ -1,7 +1,7 @@
 package view;
 
 import controller.Controller;
-import exceptions.AddCarExeption;
+import exceptions.UpdateCarException;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -10,13 +10,14 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Car;
-import view.CarFx;
-import view.Converter;
-import view.ListFx;
 
 import java.time.LocalDate;
 
-public class AddCarController {
+public class EditCarController {
+
+    public EditCarController() {
+    }
+
     @FXML
     private TextField idField;
     @FXML
@@ -29,7 +30,7 @@ public class AddCarController {
     private CheckBox isAfterCrashField;
 
     private Stage dialogStage;
-
+    private CarFx carFx;
     String date;
 
     @FXML
@@ -45,33 +46,36 @@ public class AddCarController {
         date = ld.toString();
     }
 
+    // заполняет поля окна редактирования
+    public void setCarFx(CarFx carFx) {
+        this.carFx = carFx;
 
+        idField.setText(Integer.toString(carFx.getId()));
+        nameField.setText(carFx.getName());
+        dp.setValue(LocalDate.parse(carFx.getDate()));
+        colorField.setText(carFx.getColor());
+        isAfterCrashField.setSelected(carFx.isIsAfterCrash());
+    }
+
+    //уставливает новые значения после редкатирования
     @FXML
     private void handleOk() {
         if (isInputValid()) {
-            Car car;
-            CarFx carFx = new CarFx(
-                    Integer.parseInt((idField.getText())),
-                    nameField.getText(),
-                    date,
-                    colorField.getText(),
-                    isAfterCrashField.isSelected());
+            carFx.setId(Integer.parseInt((idField.getText())));
+            carFx.setName(nameField.getText());
+            carFx.setDate(dp.getValue().toString());
+            carFx.setColor(colorField.getText());
+            carFx.setIsAfterCrash(isAfterCrashField.isSelected());
 
-            System.out.println(carFx);
-
-            ListFx.getInstance().getCarFxList().add(carFx);
-
-            car = Converter.getInstance().convertCarFxToCar(carFx);
+            Car car = Converter.getInstance().convertCarFxToCar(carFx);
             try {
-                Controller.getInstance().addCar(car);
-            } catch (AddCarExeption e) {
+                Controller.getInstance().updateCar(car);
+            } catch (UpdateCarException e) {
                 e.getMessage();
             }
-
             dialogStage.close();
         }
     }
-
 
     @FXML
     private void handleCancel() {
@@ -98,19 +102,9 @@ public class AddCarController {
             errorMessage += "Invalid color!\n";
         }
 
-
-        /* if (isAfterCrashField.getText() == null || isAfterCrashField.getText().length() == 0) {
-            errorMessage += "Invalid isAfterCrashField!\n";
-        } else {
-            try {
-                Boolean.parseBoolean((isAfterCrashField.getText()));
-            } catch (NumberFormatException e) {
-                errorMessage += "No valid postal code (must be an integer)!\n";
-            }
-        } */
-
         if (errorMessage.length() == 0) {
             return true;
+
         } else {
             Alert alert = new Alert(AlertType.ERROR);
             alert.initOwner(dialogStage);
@@ -122,3 +116,8 @@ public class AddCarController {
         }
     }
 }
+
+
+
+
+

@@ -27,16 +27,14 @@ public class Converter {
         this.controller = Controller.getInstance();
     }
 
-    public List convertCartoCarFx() {
-        ArrayList<CarFx> carFxConvertn = ListFx.getInstance().getCarFxList();
-
+    public ArrayList convertCarToCarFx(ArrayList<CarFx> carFxConvertn) {
         try {
             for (int i = 0; i < controller.getAllCars().size(); i++) {
 
                 carFxConvertn.add(new CarFx(controller.getAllCars().get(i).getId(),
                         controller.getAllCars().get(i).getName(),
-                        controller.getAllCars().get(i).getColor(),
                         controller.getAllCars().get(i).getDate().toString(),
+                        controller.getAllCars().get(i).getColor(),
                         controller.getAllCars().get(i).isAfterCrash()));
             }
         } catch (GetAllCarExeption e) {
@@ -45,8 +43,8 @@ public class Converter {
         return carFxConvertn;
     }
 
-    public Car convertCarFxToCar (CarFx carFx) {
-        Car car = null;
+    public Car convertCarFxToCar(CarFx carFx) {
+        Car car = new Car();
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
         try {
             car = Car.builder()

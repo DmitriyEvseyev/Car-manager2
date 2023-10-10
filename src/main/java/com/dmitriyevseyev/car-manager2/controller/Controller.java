@@ -62,16 +62,16 @@ public class Controller {
         }
     }
 
-    public void updateCar(Integer id, String Name, Date date, String color, boolean isAfterCrash) throws  UpdateCarException {
+    public void updateCar(Car car) throws  UpdateCarException {
         // dao
         Car updateCar;
         try {
             updateCar = Car.builder()
-                    .id(id)
-                    .name(Name)
-                    .date(date)
-                    .color(color)
-                    .isAfterCrash(isAfterCrash)
+                    .id(car.getId())
+                    .name(car.getName())
+                    .date(car.getDate())
+                    .color(car.getColor())
+                    .isAfterCrash(car.isAfterCrash())
                     .build();
             daoCar.update(updateCar);
         } catch (SQLException e) {

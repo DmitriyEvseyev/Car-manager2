@@ -3,7 +3,6 @@ package view;
 import controller.Controller;
 import exceptions.DeleteCarExeption;
 import exceptions.NotFoundException;
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -60,10 +59,10 @@ public class ControllerView implements Initializable {
         rows.clear();
         ListFx.getInstance().getCarFxList().clear();
 
-        int length = Converter.getInstance().convertCartoCarFx().size();
+        int length = ListFx.getInstance().addListFx().size();
 
         for (int i = 0; i < length; i++) {
-            CarFx carFx = (CarFx) Converter.getInstance().convertCartoCarFx().get(i);
+            CarFx carFx = (CarFx) ListFx.getInstance().addListFx().get(i);
             carFx.getCheckBox().setSelected(false);
             rows.add(carFx);
             rows.get(i).getCheckBox().setOnAction(actionEvent -> {
@@ -115,9 +114,11 @@ public class ControllerView implements Initializable {
         for (Integer i = 0; i < length && length > 0; i++) {
             if (tableview.getItems().get(i).getCheckBox().isSelected()) {
                 try {
+                    CarFx f = tableview.getItems().get(i);
+
                     Controller.getInstance().removeCar(tableview.getItems().get(i).getId());
                     tableview.getItems().remove(i);
-                    Converter.getInstance().convertCartoCarFx().remove(i);
+                    ListFx.getInstance().addListFx().remove(i);
                     --i;
                     --length;
                 } catch (NotFoundException e) {
@@ -132,15 +133,13 @@ public class ControllerView implements Initializable {
 
     @FXML
     private void editSelectedRow() {
-        /*
         int length = tableview.getItems().size();
         for (int i = 0; i < length; i++) {
             if (tableview.getItems().get(i).getCheckBox().isSelected()) {
                 try {
                     // Загружаем fxml-файл и создаём новую сцену для всплывающего диалогового окна.
-                    FXMLLoader loader = new FXMLLoader(Application.class.getResource("carEdit.fxml"));
+                    FXMLLoader loader = new FXMLLoader(CLIView.class.getResource("carEdit.fxml"));
                     Scene scene = new Scene(loader.load());
-
                     Stage dialogStage = new Stage();
                     dialogStage.setTitle("Edit Car");
                     dialogStage.setScene(scene);
@@ -148,7 +147,7 @@ public class ControllerView implements Initializable {
                     // Передаём адресата в контроллер.
                     EditCarController editCarcontroller = loader.getController();
                     editCarcontroller.setDialogStage(dialogStage);
-                    editCarcontroller.setCar(tableview.getItems().get(i));
+                    editCarcontroller.setCarFx(tableview.getItems().get(i));
 
                     dialogStage.showAndWait();
 
@@ -157,7 +156,7 @@ public class ControllerView implements Initializable {
                 }
             }
         }
-        refresh(); */
+        refresh();
     }
 
     @FXML

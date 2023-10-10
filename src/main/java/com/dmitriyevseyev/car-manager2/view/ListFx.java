@@ -25,4 +25,8 @@ public class ListFx {
     public void setCarFxList(ArrayList<CarFx> carFxList) {
         this.carFxList = carFxList;
     }
+
+    public  ArrayList addListFx () {
+        return Converter.getInstance().convertCarToCarFx(carFxList);
+    }
 }
