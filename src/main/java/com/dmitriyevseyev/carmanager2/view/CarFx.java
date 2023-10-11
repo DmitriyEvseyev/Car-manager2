@@ -1,12 +1,10 @@
 package com.dmitriyevseyev.carmanager2.view;
 
-import com.dmitriyevseyev.carmanager2.model.Car;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.CheckBox;
 
-import java.util.Date;
 import java.util.Objects;
 
 public class CarFx {

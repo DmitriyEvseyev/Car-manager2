@@ -120,7 +120,7 @@ public class ControllerView implements Initializable {
                     --i;
                     --length;
                 } catch (NotFoundException e) {
-                    System.out.println(e.getMessage() + "sdvsdv");
+                    System.out.println(e.getMessage());
                 } catch (DeleteCarExeption e) {
                     System.out.println(e.getMessage());
                 }

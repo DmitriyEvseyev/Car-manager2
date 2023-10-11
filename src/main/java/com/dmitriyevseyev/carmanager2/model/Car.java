@@ -1,6 +1,5 @@
 package com.dmitriyevseyev.carmanager2.model;
 
-
 import java.util.Date;
 import java.util.Objects;
 
