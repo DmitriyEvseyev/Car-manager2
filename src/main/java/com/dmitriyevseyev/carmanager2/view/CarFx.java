@@ -1,9 +1,12 @@
 package com.dmitriyevseyev.carmanager2.view;
 
+import com.dmitriyevseyev.carmanager2.model.Car;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.CheckBox;
+
+import java.util.Date;
 import java.util.Objects;
 
 public class CarFx {
@@ -122,6 +125,68 @@ public class CarFx {
                 ", isAfterCrash=" + isAfterCrash +
                 ", checkBox=" + checkBox +
                 '}';
+    }
+
+    public static Builder builder() {
+        return new CarFx.Builder();
+    }
+
+    public static class Builder {
+        private Integer id;
+        private String name;
+        private String date;
+        private String color;
+        private boolean isAfterCrash;
+        private CheckBox checkBox;
+
+        Builder() {
+        }
+
+        public Builder id(Integer id) {
+            this.id = id;
+
+            // why we return this? it's chain pattern. you can read more about it
+            return this;
+        }
+
+        public Builder name(String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder date(String date) {
+            this.date = date;
+
+            return this;
+        }
+
+        public Builder color(String color) {
+            this.color = color;
+
+            return this;
+        }
+
+        public Builder isAfterCrash(boolean isAfterCrash) {
+            this.isAfterCrash = isAfterCrash;
+
+            return this;
+        }
+
+        public Builder checkBox(CheckBox checkBox) {
+            this.checkBox = checkBox;
+
+            return this;
+        }
+
+        public CarFx build() {
+            return new CarFx(
+                    id,
+                    name,
+                    date,
+                    color,
+                    isAfterCrash
+            );
+        }
     }
 }
 

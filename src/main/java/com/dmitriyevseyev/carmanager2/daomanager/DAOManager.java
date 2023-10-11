@@ -46,7 +46,6 @@ public class DAOManager {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
             System.exit(0);
         }
-        System.out.println("Table created successfully");
     }
 
     public Integer maxIdCar() throws SQLException {
@@ -59,7 +58,6 @@ public class DAOManager {
                 MaxIdCar = rs.getInt("MAX");
             }
         }
-        System.out.println("MaxIdCar " + MaxIdCar);
         return MaxIdCar + 1;
     }
 }

@@ -120,7 +120,7 @@ public class ControllerView implements Initializable {
                     --i;
                     --length;
                 } catch (NotFoundException e) {
-                    System.out.println(e.getMessage());
+                    System.out.println(e.getMessage() + "sdvsdv");
                 } catch (DeleteCarExeption e) {
                     System.out.println(e.getMessage());
                 }
@@ -161,7 +161,7 @@ public class ControllerView implements Initializable {
     private void addRow() {
         try {
             // Загружаем fxml-файл и создаём новую сцену для всплывающего диалогового окна.
-            FXMLLoader loader = new FXMLLoader(CLIView.class.getResource("/com.dmitriyevseyev.car-manager2.fxml/addCar.fxml"));
+            FXMLLoader loader = new FXMLLoader(CLIView.class.getResource("/com.dmitriyevseyev.car-manager2.fxml/carAdd.fxml"));
             Scene scene = new Scene(loader.load());
 
             Stage dialogStage = new Stage();

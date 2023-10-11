@@ -19,8 +19,6 @@ public class EditCarController {
     }
 
     @FXML
-    private TextField idField;
-    @FXML
     private TextField nameField;
     @FXML
     private DatePicker dp;
@@ -50,7 +48,6 @@ public class EditCarController {
     public void setCarFx(CarFx carFx) {
         this.carFx = carFx;
 
-        idField.setText(Integer.toString(carFx.getId()));
         nameField.setText(carFx.getName());
         dp.setValue(LocalDate.parse(carFx.getDate()));
         colorField.setText(carFx.getColor());
@@ -61,13 +58,13 @@ public class EditCarController {
     @FXML
     private void handleOk() {
         if (isInputValid()) {
-            carFx.setId(Integer.parseInt((idField.getText())));
             carFx.setName(nameField.getText());
             carFx.setDate(dp.getValue().toString());
             carFx.setColor(colorField.getText());
             carFx.setIsAfterCrash(isAfterCrashField.isSelected());
 
             Car car = Converter.getInstance().convertCarFxToCar(carFx);
+
             try {
                 Controller.getInstance().updateCar(car);
             } catch (UpdateCarException e) {
@@ -86,15 +83,6 @@ public class EditCarController {
     private boolean isInputValid() {
         String errorMessage = "";
 
-        if (idField.getText() == null || idField.getText().length() == 0) {
-            errorMessage += "Invalid Id!\n";
-        } else {
-            try {
-                Integer.parseInt((idField.getText()));
-            } catch (NumberFormatException e) {
-                errorMessage += "No valid (id must be an integer)!\n";
-            }
-        }
         if (nameField.getText() == null || nameField.getText().length() == 0) {
             errorMessage += "No valid name!\n";
         }
