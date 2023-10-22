@@ -29,11 +29,13 @@ public class Converter {
         try {
             for (int i = 0; i < controller.getAllCars().size(); i++) {
 
-                carFxConvertn.add(new CarFx(controller.getAllCars().get(i).getId(),
-                        controller.getAllCars().get(i).getName(),
-                        controller.getAllCars().get(i).getDate().toString(),
-                        controller.getAllCars().get(i).getColor(),
-                        controller.getAllCars().get(i).isAfterCrash()));
+                carFxConvertn.add(CarFx.builder()
+                        .id(controller.getAllCars().get(i).getId())
+                        .name(controller.getAllCars().get(i).getName())
+                        .date(controller.getAllCars().get(i).getDate().toString())
+                        .color(controller.getAllCars().get(i).getColor())
+                        .isAfterCrash(controller.getAllCars().get(i).isAfterCrash())
+                        .build());
             }
         } catch (GetAllCarExeption e) {
             System.out.println(e.getMessage());

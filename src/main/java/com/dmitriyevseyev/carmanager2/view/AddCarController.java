@@ -1,7 +1,5 @@
 package com.dmitriyevseyev.carmanager2.view;
 
-import com.dmitriyevseyev.carmanager2.daomanager.DAOManager;
-import com.dmitriyevseyev.carmanager2.model.Car;
 import com.dmitriyevseyev.carmanager2.exceptions.AddCarExeption;
 import com.dmitriyevseyev.carmanager2.controller.Controller;
 import javafx.fxml.FXML;
@@ -13,7 +11,10 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Locale;
 
 public class AddCarController {
 
@@ -47,34 +48,21 @@ public class AddCarController {
     @FXML
     private void handleOk() {
         if (isInputValid()) {
-            Car car;
-            CarFx carFx = null;
             try {
-                carFx = CarFx.builder()
-                        .id(DAOManager.getInstance().maxIdCar())
-                        .name(nameField.getText())
-                        .date(date)
-                        .color(colorField.getText())
-                        .isAfterCrash(isAfterCrashField.isSelected())
-                        .build();
-
-            } catch (SQLException e) {
-                System.out.println("Id not found. " + e.getMessage());
-            }
-
-            ListFx.getInstance().getCarFxList().add(carFx);
-
-            car = Converter.getInstance().convertCarFxToCar(carFx);
-            try {
-                Controller.getInstance().addCar(car);
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
+                Controller.getInstance().addCar(
+                        nameField.getText(),
+                        formatter.parse(date),
+                        colorField.getText(),
+                        isAfterCrashField.isSelected());
             } catch (AddCarExeption e) {
                 e.getMessage();
+            } catch (ParseException e) {
+                e.getMessage();
             }
-
             dialogStage.close();
         }
     }
-
 
     @FXML
     private void handleCancel() {

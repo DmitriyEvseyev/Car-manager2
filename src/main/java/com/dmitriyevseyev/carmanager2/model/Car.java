@@ -107,7 +107,6 @@ public class Car {
 
         public Builder id(Integer id) {
             this.id = id;
-
             // why we return this? it's chain pattern. you can read more about it
             return this;
         }
