@@ -135,14 +135,12 @@ public class ControllerView implements Initializable {
         for (int i = 0; i < length; i++) {
             if (tableview.getItems().get(i).getCheckBox().isSelected()) {
                 try {
-                    // Загружаем fxml-файл и создаём новую сцену для всплывающего диалогового окна.
                     FXMLLoader loader = new FXMLLoader(CLIView.class.getResource("/com.dmitriyevseyev.car-manager2.fxml/carEdit.fxml"));
                     Scene scene = new Scene(loader.load());
                     Stage dialogStage = new Stage();
                     dialogStage.setTitle("Edit Car");
                     dialogStage.setScene(scene);
 
-                    // Передаём адресата в контроллер.
                     EditCarController editCarcontroller = loader.getController();
                     editCarcontroller.setDialogStage(dialogStage);
                     editCarcontroller.setCarFx(tableview.getItems().get(i));
@@ -160,7 +158,6 @@ public class ControllerView implements Initializable {
     @FXML
     private void addRow() {
         try {
-            // Загружаем fxml-файл и создаём новую сцену для всплывающего диалогового окна.
             FXMLLoader loader = new FXMLLoader(CLIView.class.getResource("/com.dmitriyevseyev.car-manager2.fxml/carAdd.fxml"));
             Scene scene = new Scene(loader.load());
 

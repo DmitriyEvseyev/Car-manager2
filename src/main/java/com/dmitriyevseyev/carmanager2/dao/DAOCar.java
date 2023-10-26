@@ -36,7 +36,6 @@ public class DAOCar implements DAOInterface {
         }
     }
 
-
     @Override
     public Car read(Integer id) throws SQLException {
         String sql = "SELECT * FROM CAR WHERE id = ?";

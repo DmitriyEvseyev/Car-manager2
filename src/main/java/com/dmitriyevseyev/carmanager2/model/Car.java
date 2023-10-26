@@ -89,8 +89,7 @@ public class Car {
                 '}';
     }
 
-    // builder pattern read more about it
-    // reference: https://projectlombok.org/features/Builder
+
     public static Builder builder() {
         return new Builder();
     }
@@ -107,7 +106,6 @@ public class Car {
 
         public Builder id(Integer id) {
             this.id = id;
-            // why we return this? it's chain pattern. you can read more about it
             return this;
         }
 
