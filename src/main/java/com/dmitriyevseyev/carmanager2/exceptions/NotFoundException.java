@@ -1,4 +1,4 @@
-package exceptions;
+package com.dmitriyevseyev.carmanager2.exceptions;
 
 public class NotFoundException extends Exception {
 

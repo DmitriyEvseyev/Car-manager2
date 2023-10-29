@@ -1,19 +1,19 @@
-package daointerfaces;
+package com.dmitriyevseyev.carmanager2.daointerfaces;
 
-import model.Car;
+import com.dmitriyevseyev.carmanager2.model.Car;
 
 import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 
 public interface DAOInterface {
-    public void createCar(Integer Id, String Name, Date date, String color, boolean isAfterCrash) throws SQLException;
+    public void createCar(String name, Date date, String color, boolean isAfterCrash) throws SQLException;
 
     public Car read(Integer id) throws SQLException;
 
     public void update(Car Car) throws SQLException;
 
-    public void delete(Car Car) throws SQLException;
+    public void delete(Integer id) throws SQLException;
 
     public List<Car> getAll() throws SQLException;
 

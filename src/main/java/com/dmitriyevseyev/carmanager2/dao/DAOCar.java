@@ -1,13 +1,11 @@
-package dao;
+package com.dmitriyevseyev.carmanager2.dao;
 
-import daointerfaces.DAOInterface;
-import model.Car;
+import com.dmitriyevseyev.carmanager2.daointerfaces.DAOInterface;
+import com.dmitriyevseyev.carmanager2.model.Car;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.*;
+import java.util.Date;
 
 public class DAOCar implements DAOInterface {
     private static DAOCar instance;
@@ -26,14 +24,14 @@ public class DAOCar implements DAOInterface {
     }
 
     @Override
-    public void createCar(Integer id, String Name, Date date, String color, boolean isAfterCrash) throws SQLException {
-        String sql = "INSERT INTO CAR (ID, NAME, DATE, COLOR, ISAFTERCRASH)  VALUES (?, ?, ?, ?, ?)";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, id);
-            stmt.setString(2, Name);
-            stmt.setDate(3, (new java.sql.Date(date.getTime())));
-            stmt.setString(4, color);
-            stmt.setBoolean(5, isAfterCrash);
+    public void createCar(String name, Date date, String color, boolean isAfterCrash) throws SQLException {
+        String sql = "INSERT INTO CAR (NAME, DATE, COLOR, ISAFTERCRASH)  VALUES (?, ?, ?, ?)";
+        try (PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+
+            stmt.setString(1, name);
+            stmt.setDate(2, (new java.sql.Date(date.getTime())));
+            stmt.setString(3, color);
+            stmt.setBoolean(4, isAfterCrash);
             stmt.executeUpdate();
         }
     }
@@ -63,11 +61,11 @@ public class DAOCar implements DAOInterface {
     }
 
     @Override
-    public void delete(Car Car) throws SQLException {
-        String sql = "DELETE FROM \"CAR\" WHERE \"Id\" = ?";
+    public void delete(Integer id) throws SQLException {
+        String sql = "DELETE FROM CAR WHERE Id = ?";
         try (PreparedStatement stm = connection.prepareStatement(sql);) {
-            stm.setInt(1, Car.getId());
-            stm.executeUpdate();
+            stm.setInt(1, id);
+            stm.execute();
         }
     }
 
@@ -119,22 +117,9 @@ public class DAOCar implements DAOInterface {
         return list;
     }
 
-    public Integer maxIdCar() throws SQLException {
-        Integer MaxIdCar = 0;
-        String sql = "SELECT MAX(ID) FROM CAR";
-
-        try (PreparedStatement stm = connection.prepareStatement(sql)) {
-            ResultSet rs = stm.executeQuery();
-            while (rs.next()) {
-                MaxIdCar = rs.getInt("MAX");
-            }
-        }
-        return MaxIdCar;
-    }
-
-    public boolean isCarExist (Integer Id) throws SQLException {
+    public boolean isCarExist(Integer Id) throws SQLException {
         boolean carExist;
-        String sqlExistCar = "SELECT * FROM CAR WHERE id = ?";
+        String sqlExistCar = "SELECT * FROM CAR WHERE Id = ?";
         try (PreparedStatement stm = connection.prepareStatement(sqlExistCar)) {
             stm.setInt(1, Id);
             ResultSet rs = stm.executeQuery();
