@@ -4,4 +4,5 @@ out/
 *.iws
 *.class
 *.ipr
+target/
 
