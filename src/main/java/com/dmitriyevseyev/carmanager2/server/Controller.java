@@ -1,9 +1,7 @@
-package com.dmitriyevseyev.carmanager2.controller;
+package com.dmitriyevseyev.carmanager2.server;
 
-import com.dmitriyevseyev.carmanager2.model.Car;
-import com.dmitriyevseyev.carmanager2.dao.DAOCar;
-import com.dmitriyevseyev.carmanager2.daomanager.DAOManager;
-import com.dmitriyevseyev.carmanager2.exceptions.*;
+import com.dmitriyevseyev.carmanager2.shared.Car;
+import com.dmitriyevseyev.carmanager2.server.exceptions.*;
 import java.sql.SQLException;
 import java.util.*;
 

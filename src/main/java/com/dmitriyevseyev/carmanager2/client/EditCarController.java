@@ -1,7 +1,8 @@
-package com.dmitriyevseyev.carmanager2.view;
+package com.dmitriyevseyev.carmanager2.client;
 
-import com.dmitriyevseyev.carmanager2.exceptions.AddCarExeption;
-import com.dmitriyevseyev.carmanager2.controller.Controller;
+import com.dmitriyevseyev.carmanager2.shared.Car;
+import com.dmitriyevseyev.carmanager2.server.exceptions.UpdateCarException;
+import com.dmitriyevseyev.carmanager2.server.Controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -10,12 +11,12 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.util.Locale;
 
-public class AddCarController {
+public class EditCarController {
+
+    public EditCarController() {
+    }
 
     @FXML
     private TextField nameField;
@@ -27,7 +28,7 @@ public class AddCarController {
     private CheckBox isAfterCrashField;
 
     private Stage dialogStage;
-
+    private CarFx carFx;
     String date;
 
     @FXML
@@ -38,25 +39,35 @@ public class AddCarController {
         this.dialogStage = dialogStage;
     }
 
-    @FXML
     public void ShowDate(javafx.event.ActionEvent actionEvent) {
         LocalDate ld = dp.getValue();
         date = ld.toString();
     }
 
+    // заполняет поля окна редактирования
+    public void setCarFx(CarFx carFx) {
+        this.carFx = carFx;
+
+        nameField.setText(carFx.getName());
+        dp.setValue(LocalDate.parse(carFx.getDate()));
+        colorField.setText(carFx.getColor());
+        isAfterCrashField.setSelected(carFx.isIsAfterCrash());
+    }
+
+    //уставливает новые значения после редкатирования
     @FXML
     private void handleOk() {
         if (isInputValid()) {
+            carFx.setName(nameField.getText());
+            carFx.setDate(dp.getValue().toString());
+            carFx.setColor(colorField.getText());
+            carFx.setIsAfterCrash(isAfterCrashField.isSelected());
+
+            Car car = Converter.getInstance().convertCarFxToCar(carFx);
+
             try {
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
-                Controller.getInstance().addCar(
-                        nameField.getText(),
-                        formatter.parse(date),
-                        colorField.getText(),
-                        isAfterCrashField.isSelected());
-            } catch (AddCarExeption e) {
-                e.getMessage();
-            } catch (ParseException e) {
+                Controller.getInstance().updateCar(car);
+            } catch (UpdateCarException e) {
                 e.getMessage();
             }
             dialogStage.close();
@@ -81,6 +92,7 @@ public class AddCarController {
 
         if (errorMessage.length() == 0) {
             return true;
+
         } else {
             Alert alert = new Alert(AlertType.ERROR);
             alert.initOwner(dialogStage);
@@ -92,3 +104,8 @@ public class AddCarController {
         }
     }
 }
+
+
+
+
+

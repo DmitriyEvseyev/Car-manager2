@@ -1,7 +1,6 @@
-package com.dmitriyevseyev.carmanager2.dao;
+package com.dmitriyevseyev.carmanager2.server;
 
-import com.dmitriyevseyev.carmanager2.daointerfaces.DAOInterface;
-import com.dmitriyevseyev.carmanager2.model.Car;
+import com.dmitriyevseyev.carmanager2.shared.Car;
 
 import java.sql.*;
 import java.util.*;

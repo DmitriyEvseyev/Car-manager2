@@ -1,4 +1,4 @@
-package com.dmitriyevseyev.carmanager2.view;
+package com.dmitriyevseyev.carmanager2.client;
 
 public class RefreshHelper {
     private ControllerView controllerView;

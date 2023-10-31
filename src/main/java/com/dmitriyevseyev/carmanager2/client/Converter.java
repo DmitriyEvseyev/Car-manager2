@@ -1,13 +1,13 @@
-package com.dmitriyevseyev.carmanager2.view;
+package com.dmitriyevseyev.carmanager2.client;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Locale;
 
-import com.dmitriyevseyev.carmanager2.model.Car;
-import com.dmitriyevseyev.carmanager2.exceptions.GetAllCarExeption;
-import com.dmitriyevseyev.carmanager2.controller.Controller;
+import com.dmitriyevseyev.carmanager2.shared.Car;
+import com.dmitriyevseyev.carmanager2.server.exceptions.GetAllCarExeption;
+import com.dmitriyevseyev.carmanager2.server.Controller;
 
 
 public class Converter {

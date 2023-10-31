@@ -1,4 +1,4 @@
-package com.dmitriyevseyev.carmanager2.view;
+package com.dmitriyevseyev.carmanager2.client;
 
 import java.util.ArrayList;
 

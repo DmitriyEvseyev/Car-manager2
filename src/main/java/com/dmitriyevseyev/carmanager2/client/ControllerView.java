@@ -1,8 +1,8 @@
-package com.dmitriyevseyev.carmanager2.view;
+package com.dmitriyevseyev.carmanager2.client;
 
-import com.dmitriyevseyev.carmanager2.exceptions.DeleteCarExeption;
-import com.dmitriyevseyev.carmanager2.exceptions.NotFoundException;
-import com.dmitriyevseyev.carmanager2.controller.Controller;
+import com.dmitriyevseyev.carmanager2.server.exceptions.DeleteCarExeption;
+import com.dmitriyevseyev.carmanager2.server.exceptions.NotFoundException;
+import com.dmitriyevseyev.carmanager2.server.Controller;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

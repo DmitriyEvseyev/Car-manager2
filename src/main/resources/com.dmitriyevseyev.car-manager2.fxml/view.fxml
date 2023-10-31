@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="472.0" prefWidth="617.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dmitriyevseyev.carmanager2.view.ControllerView">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="472.0" prefWidth="617.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dmitriyevseyev.carmanager2.client.ControllerView">
     <children>
         <Button fx:id="add" layoutX="103.0" layoutY="409.0" mnemonicParsing="false" onAction="#addRow" prefHeight="25.0" prefWidth="99.0" text="Создать" />
         <Button fx:id="deleteCar" disable="true" layoutX="415.0" layoutY="409.0" mnemonicParsing="false" onAction="#deleteSelectedRows" prefHeight="25.0" prefWidth="99.0" text="Удалить" />

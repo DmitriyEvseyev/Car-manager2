@@ -1,4 +1,4 @@
-package com.dmitriyevseyev.carmanager2.view;
+package com.dmitriyevseyev.carmanager2.client;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

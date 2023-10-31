@@ -1,4 +1,4 @@
-package com.dmitriyevseyev.carmanager2.model;
+package com.dmitriyevseyev.carmanager2.shared;
 
 import java.util.Date;
 import java.util.Objects;
