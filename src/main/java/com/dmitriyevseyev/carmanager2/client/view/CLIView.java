@@ -1,4 +1,4 @@
-package com.dmitriyevseyev.carmanager2.client;
+package com.dmitriyevseyev.carmanager2.client.view;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -7,7 +7,6 @@ import javafx.stage.Stage;
 import javafx.scene.Parent;
 
 import java.io.IOException;
-
 
 public class CLIView extends javafx.application.Application {
 

@@ -1,4 +1,4 @@
-package com.dmitriyevseyev.carmanager2.server;
+package com.dmitriyevseyev.carmanager2.server.dao;
 
 import com.dmitriyevseyev.carmanager2.shared.Car;
 
@@ -49,9 +49,10 @@ public class DAOCar implements DAOInterface {
     @Override
     public void update(Car car) throws SQLException {
         String sql = "UPDATE CAR SET NAME = ?, DATE = ?, COLOR = ?, ISAFTERCRASH = ?  WHERE ID = ?";
+
         try (PreparedStatement stm = connection.prepareStatement(sql);) {
             stm.setString(1, car.getName());
-            stm.setDate(2, (new java.sql.Date(car.getDate().getTime())));
+            stm.setDate(2, (java.sql.Date.valueOf(car.getDate())));
             stm.setString(3, car.getColor());
             stm.setBoolean(4, car.isAfterCrash());
             stm.setInt(5, car.getId());
@@ -97,7 +98,7 @@ public class DAOCar implements DAOInterface {
         Car = Car.builder().id(rs.getInt("Id"))
                 .name(rs.getString("Name"))
                 .color(rs.getString("Color"))
-                .date(rs.getDate("Date"))
+                .date(rs.getDate("Date").toLocalDate())
                 .isAfterCrash(rs.getBoolean("isAfterCrash"))
                 .build();
         return Car;
@@ -109,7 +110,7 @@ public class DAOCar implements DAOInterface {
             list.add(Car.builder().id(rs.getInt("Id"))
                     .name(rs.getString("Name"))
                     .color(rs.getString("Color"))
-                    .date(rs.getDate("Date"))
+                    .date(rs.getDate("Date").toLocalDate())
                     .isAfterCrash(rs.getBoolean("isAfterCrash"))
                     .build());
         }

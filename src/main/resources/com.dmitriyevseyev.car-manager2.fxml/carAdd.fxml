@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="316.0" prefWidth="495.0" xmlns="http://javafx.com/javafx/20.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dmitriyevseyev.carmanager2.client.AddCarController">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dmitriyevseyev.carmanager2.client.view.AddCarController">
     <children>
         <GridPane layoutX="19.0" layoutY="10.0" prefHeight="242.0" prefWidth="455.0">
             <columnConstraints>
@@ -28,7 +28,7 @@
             </rowConstraints>
             <children>
                 <TextField fx:id="nameField" GridPane.columnIndex="1"/>
-                <DatePicker fx:id="dp" editable="false" onAction="#ShowDate" prefHeight="25.0" prefWidth="310.0"
+                <DatePicker fx:id="dp" editable="false"  prefHeight="25.0" prefWidth="310.0"
                             GridPane.columnIndex="1" GridPane.rowIndex="1"/>
                 <TextField fx:id="colorField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
                 <CheckBox fx:id="isAfterCrashField" mnemonicParsing="false" GridPane.columnIndex="1"

@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="316.0" prefWidth="495.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dmitriyevseyev.carmanager2.client.EditCarController">
+<AnchorPane prefHeight="316.0" prefWidth="495.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dmitriyevseyev.carmanager2.client.view.EditCarController">
    <children>
       <GridPane layoutX="19.0" layoutY="10.0" prefHeight="250.0" prefWidth="455.0">
          <columnConstraints>
@@ -44,7 +44,7 @@
             <TextField fx:id="nameField" GridPane.columnIndex="1" />
             <TextField fx:id="colorField" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <CheckBox fx:id="isAfterCrashField" mnemonicParsing="false" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <DatePicker fx:id="dp" editable="false" onAction="#ShowDate" prefHeight="25.0" prefWidth="308.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <DatePicker fx:id="dp" editable="false" prefHeight="25.0" prefWidth="308.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Label text="Date" GridPane.rowIndex="1">
                <font>
                   <Font size="25.0" />

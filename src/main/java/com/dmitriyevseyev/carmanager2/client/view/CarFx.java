@@ -1,16 +1,17 @@
-package com.dmitriyevseyev.carmanager2.client;
+package com.dmitriyevseyev.carmanager2.client.view;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.CheckBox;
 
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class CarFx {
     private SimpleIntegerProperty id;
     private SimpleStringProperty name;
-    private SimpleStringProperty date;
+    private LocalDate date;
     private SimpleStringProperty color;
     private SimpleBooleanProperty isAfterCrash;
     private CheckBox checkBox;
@@ -18,10 +19,10 @@ public class CarFx {
     public CarFx() {
     }
 
-    public CarFx(Integer id, String name, String date, String color, Boolean isAfterCrash) {
+    public CarFx(Integer id, String name, LocalDate date, String color, Boolean isAfterCrash) {
         this.id = new SimpleIntegerProperty(id);
         this.name = new SimpleStringProperty(name);
-        this.date = new SimpleStringProperty(date);
+        this.date = date;
         this.color = new SimpleStringProperty(color);
         this.isAfterCrash = new SimpleBooleanProperty(isAfterCrash);
         this.checkBox = new CheckBox();
@@ -51,16 +52,12 @@ public class CarFx {
         this.name.set(name);
     }
 
-    public String getDate() {
-        return date.get();
-    }
-
-    public SimpleStringProperty dateProperty() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(String date) {
-        this.date.set(date);
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public String getColor() {
@@ -132,7 +129,7 @@ public class CarFx {
     public static class Builder {
         private Integer id;
         private String name;
-        private String date;
+        private LocalDate date;
         private String color;
         private boolean isAfterCrash;
         private CheckBox checkBox;
@@ -150,7 +147,7 @@ public class CarFx {
             return this;
         }
 
-        public Builder date(String date) {
+        public Builder date(LocalDate date) {
             this.date = date;
 
             return this;

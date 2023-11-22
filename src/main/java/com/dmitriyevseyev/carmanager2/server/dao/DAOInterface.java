@@ -1,4 +1,4 @@
-package com.dmitriyevseyev.carmanager2.server;
+package com.dmitriyevseyev.carmanager2.server.dao;
 
 import com.dmitriyevseyev.carmanager2.shared.Car;
 

@@ -1,8 +1,9 @@
-package com.dmitriyevseyev.carmanager2.client;
+package com.dmitriyevseyev.carmanager2.client.view;
 
+import com.dmitriyevseyev.carmanager2.client.controller.ControllerClient;
+import com.dmitriyevseyev.carmanager2.client.view.CarFx;
+import com.dmitriyevseyev.carmanager2.client.view.Converter;
 import com.dmitriyevseyev.carmanager2.shared.Car;
-import com.dmitriyevseyev.carmanager2.server.exceptions.UpdateCarException;
-import com.dmitriyevseyev.carmanager2.server.Controller;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -10,8 +11,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import java.time.LocalDate;
 
 public class EditCarController {
 
@@ -29,7 +28,6 @@ public class EditCarController {
 
     private Stage dialogStage;
     private CarFx carFx;
-    String date;
 
     @FXML
     private void initialize() {
@@ -39,17 +37,12 @@ public class EditCarController {
         this.dialogStage = dialogStage;
     }
 
-    public void ShowDate(javafx.event.ActionEvent actionEvent) {
-        LocalDate ld = dp.getValue();
-        date = ld.toString();
-    }
-
     // заполняет поля окна редактирования
     public void setCarFx(CarFx carFx) {
         this.carFx = carFx;
 
         nameField.setText(carFx.getName());
-        dp.setValue(LocalDate.parse(carFx.getDate()));
+        dp.setValue(carFx.getDate());
         colorField.setText(carFx.getColor());
         isAfterCrashField.setSelected(carFx.isIsAfterCrash());
     }
@@ -59,17 +52,13 @@ public class EditCarController {
     private void handleOk() {
         if (isInputValid()) {
             carFx.setName(nameField.getText());
-            carFx.setDate(dp.getValue().toString());
+            carFx.setDate(dp.getValue());
             carFx.setColor(colorField.getText());
             carFx.setIsAfterCrash(isAfterCrashField.isSelected());
 
             Car car = Converter.getInstance().convertCarFxToCar(carFx);
+            ControllerClient.getInstance().updateCar(car);
 
-            try {
-                Controller.getInstance().updateCar(car);
-            } catch (UpdateCarException e) {
-                e.getMessage();
-            }
             dialogStage.close();
         }
     }
@@ -79,7 +68,7 @@ public class EditCarController {
         dialogStage.close();
     }
 
-    /* Проверяет пользовательский ввод в текстовых полях. * @return true, если пользовательский ввод корректен*/
+    /* Проверяет пользовательский ввод в текстовых полях. return true, если пользовательский ввод корректен*/
     private boolean isInputValid() {
         String errorMessage = "";
 

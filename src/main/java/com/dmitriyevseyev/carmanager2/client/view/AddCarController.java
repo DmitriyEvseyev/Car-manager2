@@ -1,7 +1,6 @@
-package com.dmitriyevseyev.carmanager2.client;
+package com.dmitriyevseyev.carmanager2.client.view;
 
-import com.dmitriyevseyev.carmanager2.server.exceptions.AddCarExeption;
-import com.dmitriyevseyev.carmanager2.server.Controller;
+import com.dmitriyevseyev.carmanager2.client.controller.ControllerClient;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -9,11 +8,6 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Locale;
 
 public class AddCarController {
 
@@ -28,8 +22,6 @@ public class AddCarController {
 
     private Stage dialogStage;
 
-    String date;
-
     @FXML
     private void initialize() {
     }
@@ -39,26 +31,14 @@ public class AddCarController {
     }
 
     @FXML
-    public void ShowDate(javafx.event.ActionEvent actionEvent) {
-        LocalDate ld = dp.getValue();
-        date = ld.toString();
-    }
-
-    @FXML
     private void handleOk() {
         if (isInputValid()) {
-            try {
-                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
-                Controller.getInstance().addCar(
-                        nameField.getText(),
-                        formatter.parse(date),
-                        colorField.getText(),
-                        isAfterCrashField.isSelected());
-            } catch (AddCarExeption e) {
-                e.getMessage();
-            } catch (ParseException e) {
-                e.getMessage();
-            }
+            ControllerClient.getInstance().addCar(
+                    nameField.getText(),
+                    dp.getValue(),
+                    colorField.getText(),
+                    isAfterCrashField.isSelected());
+
             dialogStage.close();
         }
     }
@@ -68,7 +48,7 @@ public class AddCarController {
         dialogStage.close();
     }
 
-    /* Проверяет пользовательский ввод в текстовых полях. * @return true, если пользовательский ввод корректен*/
+    /* Проверяет пользовательский ввод в текстовых полях. return true, если пользовательский ввод корректен*/
     private boolean isInputValid() {
         String errorMessage = "";
 

@@ -1,5 +1,5 @@
-package com.dmitriyevseyev.carmanager2.shared;
-
+package com.dmitriyevseyev.carmanager2.shared.dto;
+import com.dmitriyevseyev.carmanager2.shared.Car;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
@@ -7,24 +7,22 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
-
-
 @JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
-public class Car implements Serializable {
+
+public class CarDTO {
+
     private Integer id;
     private String name;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    /*@JsonSerialize(as = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class, as = LocalDateTime.class)*/
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private LocalDate date;
     private String color;
     private boolean isAfterCrash;
 
-    public Car() {
+    public CarDTO() {
     }
 
-    public Car(Integer id, String name, LocalDate date, String color, boolean isAfterCrash) {
+    public CarDTO(Integer id, String name, LocalDate date, String color, boolean isAfterCrash) {
         this.id = id;
         this.name = name;
         this.date = date;
@@ -72,17 +70,19 @@ public class Car implements Serializable {
         isAfterCrash = afterCrash;
     }
 
-    @Override
+    /*@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Car car = (Car) o;
+        com.dmitriyevseyev.carmanager2.shared.Car car = (com.dmitriyevseyev.carmanager2.shared.Car) o;
         return isAfterCrash == car.isAfterCrash &&
                 Objects.equals(id, car.id) &&
                 Objects.equals(name, car.name) &&
                 Objects.equals(date, car.date) &&
                 Objects.equals(color, car.color);
     }
+
+     */
 
     @Override
     public int hashCode() {
@@ -99,10 +99,10 @@ public class Car implements Serializable {
                 ", isAfterCrash=" + isAfterCrash +
                 '}';
     }
+/*
 
-
-    public static Builder builder() {
-        return new Builder();
+    public static com.dmitriyevseyev.carmanager2.shared.Car.Builder builder() {
+        return new com.dmitriyevseyev.carmanager2.shared.Car.Builder();
     }
 
     public static class Builder {
@@ -115,37 +115,37 @@ public class Car implements Serializable {
         Builder() {
         }
 
-        public Builder id(Integer id) {
+        public com.dmitriyevseyev.carmanager2.shared.Car.Builder id(Integer id) {
             this.id = id;
             return this;
         }
 
-        public Builder name(String name) {
+        public com.dmitriyevseyev.carmanager2.shared.Car.Builder name(String name) {
             this.name = name;
 
             return this;
         }
 
-        public Builder date(LocalDate date) {
+        public com.dmitriyevseyev.carmanager2.shared.Car.Builder date(LocalDate date) {
             this.date = date;
 
             return this;
         }
 
-        public Builder color(String color) {
+        public com.dmitriyevseyev.carmanager2.shared.Car.Builder color(String color) {
             this.color = color;
 
             return this;
         }
 
-        public Builder isAfterCrash(boolean isAfterCrash) {
+        public com.dmitriyevseyev.carmanager2.shared.Car.Builder isAfterCrash(boolean isAfterCrash) {
             this.isAfterCrash = isAfterCrash;
 
             return this;
         }
 
-        public Car build() {
-            return new Car(
+        public com.dmitriyevseyev.carmanager2.shared.Car build() {
+            return new com.dmitriyevseyev.carmanager2.shared.Car(
                     id,
                     name,
                     date,
@@ -154,4 +154,7 @@ public class Car implements Serializable {
             );
         }
     }
+
+ */
 }
+

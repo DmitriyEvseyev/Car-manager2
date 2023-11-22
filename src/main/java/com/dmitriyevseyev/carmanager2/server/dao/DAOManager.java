@@ -1,7 +1,8 @@
-package com.dmitriyevseyev.carmanager2.server;
+package com.dmitriyevseyev.carmanager2.server.dao;
+
+import com.dmitriyevseyev.carmanager2.shared.Constants;
 
 import java.sql.*;
-
 
 public class DAOManager {
     public static java.sql.Connection connection;
@@ -23,8 +24,10 @@ public class DAOManager {
 
         try {
             Class.forName("org.postgresql.Driver");
-            connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/CAR",
-                    "postgres", "5b6eu5");
+            connection = DriverManager.getConnection(
+                    Constants.JDBC,
+                    Constants.USER,
+                    Constants.PASSWORD);
             this.daoCar = DAOCar.getInstance(connection);
         } catch (SQLException | ClassNotFoundException e) {
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
