@@ -1,22 +1,13 @@
 package com.dmitriyevseyev.carmanager2.shared;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonTypeInfo;
-
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Objects;
 
 
-
-@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "@class")
 public class Car implements Serializable {
     private Integer id;
     private String name;
-
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    /*@JsonSerialize(as = LocalDateTimeSerializer.class)
-    @JsonDeserialize(using = LocalDateTimeDeserializer.class, as = LocalDateTime.class)*/
     private LocalDate date;
     private String color;
     private boolean isAfterCrash;

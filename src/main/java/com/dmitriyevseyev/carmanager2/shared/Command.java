@@ -1,6 +1,8 @@
 package com.dmitriyevseyev.carmanager2.shared;
 
-public class Command {
+import java.io.Serializable;
+
+public class Command implements Serializable  {
     public Integer action;
     public Object data;
 

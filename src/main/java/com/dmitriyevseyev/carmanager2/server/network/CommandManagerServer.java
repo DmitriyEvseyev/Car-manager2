@@ -12,19 +12,17 @@ import java.util.Map;
 
 public class CommandManagerServer {
     private static CommandManagerServer instance;
-    private Socket clientSocket;
 
-    public static CommandManagerServer getInstance(Socket clientSocket) {
+    public static CommandManagerServer getInstance() {
         if (instance == null) {
-            instance = new CommandManagerServer(clientSocket);
+            instance = new CommandManagerServer();
         }
         return instance;
     }
 
     private Map<Integer, Handler> handlerMap;
 
-    private CommandManagerServer(Socket client) {
-        this.clientSocket = client;
+    private CommandManagerServer() {
         handlerMap = new HashMap<>();
         handlerMap.put(CommandId.GET_ALL_CARS, new GetAllCarsHandler());
         /* handlerMap.put(ServerCommandIdConstants.ADD_TASK, new AddTaskHandler());
@@ -38,16 +36,8 @@ public class CommandManagerServer {
     }
 
     public void processCommand(Command command) {
-        try (BufferedWriter out = new BufferedWriter(new OutputStreamWriter(clientSocket.getOutputStream()))) {
-            String answer = handlerMap.get(command.getAction()).handle();
-            System.out.println("answer server - " + answer);
+        handlerMap.get(command.getAction()).handle(command);
 
-            out.write(answer + "\n");
-            out.flush();
-
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
-        }
     }
 }
 
