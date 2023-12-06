@@ -4,7 +4,8 @@ import com.dmitriyevseyev.carmanager2.shared.Car;
 import com.dmitriyevseyev.carmanager2.shared.Command;
 
 import java.util.HashMap;
+import java.util.List;
 
-public interface Handler {
-     HashMap<Integer, Car> handle(Command command);
+public interface HandlerClient {
+     List<Car> handle(Command command);
 }

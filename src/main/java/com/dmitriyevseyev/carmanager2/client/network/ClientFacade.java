@@ -44,8 +44,7 @@ public class ClientFacade {
 
                 try {
                     Command resp = (Command) objectInputStream.readObject();
-                    System.out.println("resp ---- " + resp.getClass());
-                    List<Car> carL = (List<Car>) resp.getData();
+                    List<Car> carL = CommandManagerClient.getInstance().processCommand(resp);
 
                     for (Car car : carL) {
                         System.out.println(car);

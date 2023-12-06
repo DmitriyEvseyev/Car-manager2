@@ -1,15 +1,12 @@
 package com.dmitriyevseyev.carmanager2.server.network;
 
 import com.dmitriyevseyev.carmanager2.shared.Command;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 import static com.dmitriyevseyev.carmanager2.shared.Constants.SERVER_PORT;
-import static com.dmitriyevseyev.carmanager2.shared.Constants.SERVER_URL;
 
 public class SevserFasade {
     private static SevserFasade instance;
@@ -49,13 +46,11 @@ public class SevserFasade {
         }
     }
 
-   public void sendler(Command command) {
-
+    public void sendler(Command command) {
         try {
             this.objectOutputStream.writeObject(command);
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
     }
-
 }

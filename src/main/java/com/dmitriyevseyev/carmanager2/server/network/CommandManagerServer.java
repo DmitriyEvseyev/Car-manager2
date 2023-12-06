@@ -1,12 +1,11 @@
 package com.dmitriyevseyev.carmanager2.server.network;
 
 import com.dmitriyevseyev.carmanager2.server.network.handlers.GetAllCarsHandler;
-import com.dmitriyevseyev.carmanager2.server.network.handlers.Handler;
+
+import com.dmitriyevseyev.carmanager2.server.network.handlers.HandlerServer;
 import com.dmitriyevseyev.carmanager2.shared.Command;
 import com.dmitriyevseyev.carmanager2.shared.CommandId;
 
-import java.io.*;
-import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -20,7 +19,7 @@ public class CommandManagerServer {
         return instance;
     }
 
-    private Map<Integer, Handler> handlerMap;
+    private Map<Integer, HandlerServer> handlerMap;
 
     private CommandManagerServer() {
         handlerMap = new HashMap<>();
@@ -37,7 +36,6 @@ public class CommandManagerServer {
 
     public void processCommand(Command command) {
         handlerMap.get(command.getAction()).handle(command);
-
     }
 }
 

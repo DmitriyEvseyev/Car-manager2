@@ -1,34 +1,28 @@
 package com.dmitriyevseyev.carmanager2.client.network;
 
 import com.dmitriyevseyev.carmanager2.client.network.handlers.GetAllCarsHandlerClient;
-import com.dmitriyevseyev.carmanager2.server.network.handlers.GetAllCarsHandler;
-import com.dmitriyevseyev.carmanager2.client.network.handlers.Handler;
+import com.dmitriyevseyev.carmanager2.client.network.handlers.HandlerClient;
 import com.dmitriyevseyev.carmanager2.shared.Car;
 import com.dmitriyevseyev.carmanager2.shared.Command;
 import com.dmitriyevseyev.carmanager2.shared.CommandId;
 
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.net.Socket;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CommandManagerClient {
     private static CommandManagerClient instance;
-    private Socket clientSocket;
 
-    public static CommandManagerClient getInstance(Socket clientSocket) {
+    public static CommandManagerClient getInstance() {
         if (instance == null) {
-            instance = new CommandManagerClient(clientSocket);
+            instance = new CommandManagerClient();
         }
         return instance;
     }
 
-    private Map<Integer, Handler> handlerMap;
+    private Map<Integer, HandlerClient> handlerMap;
 
-    private CommandManagerClient(Socket client) {
-        this.clientSocket = client;
+    private CommandManagerClient() {
         handlerMap = new HashMap<>();
         handlerMap.put(CommandId.GET_ALL_CARS, new GetAllCarsHandlerClient());
         /* handlerMap.put(ServerCommandIdConstants.ADD_TASK, new AddTaskHandler());
@@ -40,10 +34,9 @@ public class CommandManagerClient {
         */
     }
 
-    public void processCommand(Command command) {
-        HashMap<Integer, Car> carMap = new HashMap<>(handlerMap.get(command.getAction()).handle(command));
-
-            System.out.println("responce from server - " + carMap);
+    public List<Car> processCommand(Command command) {
+        List <Car> carListHandler = handlerMap.get(command.getAction()).handle(command);
+        return   carListHandler;
     }
 }
 
