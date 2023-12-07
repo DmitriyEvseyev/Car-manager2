@@ -11,7 +11,7 @@ import java.util.Objects;
 public class CarFx {
     private SimpleIntegerProperty id;
     private SimpleStringProperty name;
-    private LocalDate date;
+    private SimpleStringProperty date;
     private SimpleStringProperty color;
     private SimpleBooleanProperty isAfterCrash;
     private CheckBox checkBox;
@@ -19,10 +19,10 @@ public class CarFx {
     public CarFx() {
     }
 
-    public CarFx(Integer id, String name, LocalDate date, String color, Boolean isAfterCrash) {
+    public CarFx(Integer id, String name, String date, String color, Boolean isAfterCrash) {
         this.id = new SimpleIntegerProperty(id);
         this.name = new SimpleStringProperty(name);
-        this.date = date;
+        this.date = new SimpleStringProperty(date);
         this.color = new SimpleStringProperty(color);
         this.isAfterCrash = new SimpleBooleanProperty(isAfterCrash);
         this.checkBox = new CheckBox();
@@ -52,12 +52,16 @@ public class CarFx {
         this.name.set(name);
     }
 
-    public LocalDate getDate() {
+    public String getDate() {
+        return date.get();
+    }
+
+    public SimpleStringProperty dateProperty() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
-        this.date = date;
+    public void setDate(String date) {
+        this.date.set(date);
     }
 
     public String getColor() {
@@ -129,7 +133,7 @@ public class CarFx {
     public static class Builder {
         private Integer id;
         private String name;
-        private LocalDate date;
+        private String date;
         private String color;
         private boolean isAfterCrash;
         private CheckBox checkBox;
@@ -147,7 +151,7 @@ public class CarFx {
             return this;
         }
 
-        public Builder date(LocalDate date) {
+        public Builder date(String date) {
             this.date = date;
 
             return this;
@@ -155,7 +159,6 @@ public class CarFx {
 
         public Builder color(String color) {
             this.color = color;
-
             return this;
         }
 

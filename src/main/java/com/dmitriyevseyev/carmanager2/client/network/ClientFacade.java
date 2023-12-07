@@ -18,6 +18,9 @@ import static com.dmitriyevseyev.carmanager2.shared.Constants.SERVER_URL;
 public class ClientFacade {
     private static ClientFacade instance;
     private Socket socket;
+    private ObjectOutputStream objectOutputStream;
+    private ObjectInputStream objectInputStream;
+
 
     public static ClientFacade getInstance() {
         if (instance == null) {
@@ -35,32 +38,35 @@ public class ClientFacade {
             this.socket = new Socket(SERVER_URL, Integer.parseInt(SERVER_PORT));
             System.out.println("The client is running!");
 
-            try (ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
-                 ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream())) {
+            this.objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+            this.objectInputStream = new ObjectInputStream(socket.getInputStream());
 
-                Command command = new Command(CommandId.GET_ALL_CARS, "");
-                System.out.println(command);
-                objectOutputStream.writeObject(command);
+            Command command = new Command(CommandId.GET_ALL_CARS, "");
+            System.out.println(command);
+            objectOutputStream.writeObject(command);
 
-                try {
-                    Command resp = (Command) objectInputStream.readObject();
-                    List<Car> carL = CommandManagerClient.getInstance().processCommand(resp);
+            try {
+                Command resp = (Command) objectInputStream.readObject();
+                List<Car> carL = CommandManagerClient.getInstance().processCommand(resp);
 
-                    for (Car car : carL) {
-                        System.out.println(car);
-                    }
-
-                } catch (ClassNotFoundException e) {
-                    e.printStackTrace();
+                for (Car car : carL) {
+                    System.out.println(car);
                 }
 
-
-            } catch (IOException e) {
+            } catch (ClassNotFoundException e) {
                 System.out.println(e.getMessage());
             }
+
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
+    }
 
+    public void sendler(Command command) {
+        try {
+            this.objectOutputStream.writeObject(command);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

@@ -12,6 +12,8 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.time.LocalDate;
+
 public class EditCarController {
 
     public EditCarController() {
@@ -42,7 +44,7 @@ public class EditCarController {
         this.carFx = carFx;
 
         nameField.setText(carFx.getName());
-        dp.setValue(carFx.getDate());
+        dp.setValue(LocalDate.parse(carFx.getDate()));
         colorField.setText(carFx.getColor());
         isAfterCrashField.setSelected(carFx.isIsAfterCrash());
     }
@@ -52,7 +54,7 @@ public class EditCarController {
     private void handleOk() {
         if (isInputValid()) {
             carFx.setName(nameField.getText());
-            carFx.setDate(dp.getValue());
+            carFx.setDate(dp.getValue().toString());
             carFx.setColor(colorField.getText());
             carFx.setIsAfterCrash(isAfterCrashField.isSelected());
 

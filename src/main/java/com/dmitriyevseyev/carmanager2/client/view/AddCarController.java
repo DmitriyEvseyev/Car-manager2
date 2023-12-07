@@ -9,6 +9,11 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Locale;
+
 public class AddCarController {
 
     @FXML
@@ -21,6 +26,13 @@ public class AddCarController {
     private CheckBox isAfterCrashField;
 
     private Stage dialogStage;
+    String date;
+
+    @FXML
+    public void ShowDate(javafx.event.ActionEvent actionEvent) {
+        LocalDate ld = dp.getValue();
+        date = ld.toString();
+    }
 
     @FXML
     private void initialize() {
@@ -32,12 +44,17 @@ public class AddCarController {
 
     @FXML
     private void handleOk() {
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
         if (isInputValid()) {
-            ControllerClient.getInstance().addCar(
-                    nameField.getText(),
-                    dp.getValue(),
-                    colorField.getText(),
-                    isAfterCrashField.isSelected());
+            try {
+                ControllerClient.getInstance().addCar(
+                        nameField.getText(),
+                        formatter.parse(date),
+                        colorField.getText(),
+                        isAfterCrashField.isSelected());
+            } catch (ParseException e) {
+                System.out.println(e.getMessage());
+            }
 
             dialogStage.close();
         }

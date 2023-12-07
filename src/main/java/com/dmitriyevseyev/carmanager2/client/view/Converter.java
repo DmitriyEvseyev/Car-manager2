@@ -1,7 +1,11 @@
 package com.dmitriyevseyev.carmanager2.client.view;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import com.dmitriyevseyev.carmanager2.client.controller.ControllerClient;
 import com.dmitriyevseyev.carmanager2.shared.Car;
@@ -35,19 +39,26 @@ public class Converter {
         return CarFx.builder()
                 .id(car.getId())
                 .name(car.getName())
-                .date(car.getDate())
+                .date(car.getDate().toString())
                 .color(car.getColor())
                 .isAfterCrash(car.isAfterCrash())
                 .build();
     }
 
     public Car convertCarFxToCar(CarFx carFx) {
-        return Car.builder()
-                .id(carFx.getId())
-                .name(carFx.getName())
-                .date(carFx.getDate())
-                .color(carFx.getColor())
-                .isAfterCrash(carFx.isIsAfterCrash())
-                .build();
+        Car car = new Car();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
+        try {
+            car = Car.builder()
+                    .id(carFx.getId())
+                    .name(carFx.getName())
+                    .date(formatter.parse(carFx.getDate()))
+                    .color(carFx.getColor())
+                    .isAfterCrash(carFx.isIsAfterCrash())
+                    .build();
+        } catch (ParseException e) {
+            System.out.println(e.getMessage());
+        }
+        return car;
     }
 }

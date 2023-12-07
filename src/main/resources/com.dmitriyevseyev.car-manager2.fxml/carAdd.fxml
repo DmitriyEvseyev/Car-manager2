@@ -28,7 +28,7 @@
             </rowConstraints>
             <children>
                 <TextField fx:id="nameField" GridPane.columnIndex="1"/>
-                <DatePicker fx:id="dp" editable="false"  prefHeight="25.0" prefWidth="310.0"
+                <DatePicker fx:id="dp" editable="false" onAction="#ShowDate" prefHeight="25.0" prefWidth="310.0"
                             GridPane.columnIndex="1" GridPane.rowIndex="1"/>
                 <TextField fx:id="colorField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
                 <CheckBox fx:id="isAfterCrashField" mnemonicParsing="false" GridPane.columnIndex="1"

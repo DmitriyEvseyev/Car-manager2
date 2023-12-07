@@ -1,21 +1,21 @@
 package com.dmitriyevseyev.carmanager2.shared;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 
 
 public class Car implements Serializable {
     private Integer id;
     private String name;
-    private LocalDate date;
+    private Date date;
     private String color;
     private boolean isAfterCrash;
 
     public Car() {
     }
 
-    public Car(Integer id, String name, LocalDate date, String color, boolean isAfterCrash) {
+    public Car(Integer id, String name, Date date, String color, boolean isAfterCrash) {
         this.id = id;
         this.name = name;
         this.date = date;
@@ -39,11 +39,11 @@ public class Car implements Serializable {
         this.name = name;
     }
 
-    public LocalDate getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
@@ -99,7 +99,7 @@ public class Car implements Serializable {
     public static class Builder {
         private Integer id;
         private String name;
-        private LocalDate date;
+        private Date date;
         private String color;
         private boolean isAfterCrash;
 
@@ -117,7 +117,7 @@ public class Car implements Serializable {
             return this;
         }
 
-        public Builder date(LocalDate date) {
+        public Builder date(Date date) {
             this.date = date;
 
             return this;

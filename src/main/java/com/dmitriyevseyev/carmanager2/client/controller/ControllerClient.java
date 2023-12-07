@@ -2,6 +2,8 @@ package com.dmitriyevseyev.carmanager2.client.controller;
 
 import com.dmitriyevseyev.carmanager2.shared.Car;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.*;
 
@@ -37,15 +39,18 @@ public class ControllerClient {
         return Collections.unmodifiableList(arrCar);
     }
 
-    public void addCar(String name, LocalDate date, String color, boolean isAfterCrash) {
+    public void addCar(String name, Date date, String color, boolean isAfterCrash) {
         Integer idRandom = new Random().nextInt(100 + 1);
-        Car car = Car.builder().
-                id(idRandom).
-                name(name).
-                date(date).
-                color(color).
-                isAfterCrash(isAfterCrash).
-                build();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
+        Car car = null;
+
+            car = Car.builder().
+                    id(idRandom).
+                    name(name).
+                    date(date).
+                    color(color).
+                    isAfterCrash(isAfterCrash).
+                    build();
 
         mapCar.put(car.getId(), car);
     }

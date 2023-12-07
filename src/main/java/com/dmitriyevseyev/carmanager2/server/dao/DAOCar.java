@@ -52,7 +52,7 @@ public class DAOCar implements DAOInterface {
 
         try (PreparedStatement stm = connection.prepareStatement(sql);) {
             stm.setString(1, car.getName());
-            stm.setDate(2, (java.sql.Date.valueOf(car.getDate())));
+            stm.setDate(2, (java.sql.Date) car.getDate());
             stm.setString(3, car.getColor());
             stm.setBoolean(4, car.isAfterCrash());
             stm.setInt(5, car.getId());
@@ -98,7 +98,7 @@ public class DAOCar implements DAOInterface {
         Car = Car.builder().id(rs.getInt("Id"))
                 .name(rs.getString("Name"))
                 .color(rs.getString("Color"))
-                .date(rs.getDate("Date").toLocalDate())
+                .date(rs.getDate("Date"))
                 .isAfterCrash(rs.getBoolean("isAfterCrash"))
                 .build();
         return Car;
@@ -110,7 +110,7 @@ public class DAOCar implements DAOInterface {
             list.add(Car.builder().id(rs.getInt("Id"))
                     .name(rs.getString("Name"))
                     .color(rs.getString("Color"))
-                    .date(rs.getDate("Date").toLocalDate())
+                    .date(rs.getDate("Date"))
                     .isAfterCrash(rs.getBoolean("isAfterCrash"))
                     .build());
         }
