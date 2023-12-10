@@ -9,10 +9,10 @@ import com.dmitriyevseyev.carmanager2.shared.Command;
 public class GetAllCarsHandler implements HandlerServer {
 
     @Override
-    public void handle(Command comamd) {
+    public void handle(Command command) {
 
         try {
-            Command com = new Command(comamd.getAction(), Controller.getInstance().getAllCars());
+            Command com = new Command(command.getAction(), Controller.getInstance().getAllCars());
             System.out.println("Com responce - " + com);
             SevserFasade.getInstance().sendler(com);
 

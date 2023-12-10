@@ -9,8 +9,12 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 
 import java.io.*;
 import java.net.Socket;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Random;
 
 import static com.dmitriyevseyev.carmanager2.shared.Constants.SERVER_PORT;
 import static com.dmitriyevseyev.carmanager2.shared.Constants.SERVER_URL;
@@ -41,9 +45,34 @@ public class ClientFacade {
             this.objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
             this.objectInputStream = new ObjectInputStream(socket.getInputStream());
 
-            Command command = new Command(CommandId.GET_ALL_CARS, "");
-            System.out.println(command);
-            objectOutputStream.writeObject(command);
+            SendlerClient sendlerClient = SendlerClient.getInstance();
+            sendlerClient.setObjectOutputStream(objectOutputStream);
+            sendlerClient.send(new Command(CommandId.GET_ALL_CARS, ""));
+
+            //Command command = new Command(CommandId.GET_ALL_CARS, "");
+
+            //Command command = new Command(CommandId.DELETE_CAR, "19");
+
+           /* Integer idRandom = new Random().nextInt(100 + 1);
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
+            Car carNew = null;
+            try {
+                carNew = Car.builder().
+                        id(idRandom).
+                        name("carNew").
+                        date(formatter.parse("2000-01-01")).
+                        color("color").
+                        isAfterCrash(false).
+                        build();
+            } catch (ParseException e) {
+                System.out.println(e.getMessage());
+            }
+            Command command = new Command(CommandId.ADD_CAR, carNew);
+
+            */
+
+            //System.out.println(command);
+            //objectOutputStream.writeObject(command);
 
             try {
                 Command resp = (Command) objectInputStream.readObject();
