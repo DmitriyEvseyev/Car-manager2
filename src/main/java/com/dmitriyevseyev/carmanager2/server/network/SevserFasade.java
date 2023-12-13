@@ -34,12 +34,16 @@ public class SevserFasade {
             this.objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
 
             Command request = null;
-            try {
-                request = (Command) objectInputStream.readObject();
-                System.out.println("request - " + request);
-                CommandManagerServer.getInstance().processCommand(request);
-            } catch (ClassNotFoundException ex) {
-                System.out.println(ex.getMessage());
+            while (true) {
+
+                try {
+                    request = (Command) objectInputStream.readObject();
+                    System.out.println("request - " + request);
+                    CommandManagerServer.getInstance().processCommand(request);
+
+                } catch (ClassNotFoundException ex) {
+                    System.out.println(ex.getMessage());
+                }
             }
         } catch (IOException e) {
             System.out.println(e.getMessage());

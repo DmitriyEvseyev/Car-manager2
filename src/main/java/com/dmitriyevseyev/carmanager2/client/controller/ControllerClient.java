@@ -1,6 +1,11 @@
 package com.dmitriyevseyev.carmanager2.client.controller;
 
+import com.dmitriyevseyev.carmanager2.client.network.SendlerClient;
+import com.dmitriyevseyev.carmanager2.server.controller.Controller;
+import com.dmitriyevseyev.carmanager2.server.exceptions.GetAllCarExeption;
 import com.dmitriyevseyev.carmanager2.shared.Car;
+import com.dmitriyevseyev.carmanager2.shared.Command;
+import com.dmitriyevseyev.carmanager2.shared.CommandId;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,41 +40,33 @@ public class ControllerClient {
     }
 
     public List<Car> getAllCars() {
+        Command command = new Command(CommandId.GET_ALL_CARS, "");
+        SendlerClient.getInstance().send(command);
+
         ArrayList<Car> arrCar = new ArrayList<>(mapCar.values());
         return Collections.unmodifiableList(arrCar);
     }
 
     public void addCar(String name, Date date, String color, boolean isAfterCrash) {
-        Integer idRandom = new Random().nextInt(100 + 1);
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
-        Car car = null;
+        Car car = Car.builder().
+                name(name).
+                date(date).
+                color(color).
+                isAfterCrash(isAfterCrash).
+                build();
 
-            car = Car.builder().
-                    id(idRandom).
-                    name(name).
-                    date(date).
-                    color(color).
-                    isAfterCrash(isAfterCrash).
-                    build();
-
-        mapCar.put(car.getId(), car);
+        Command command = new Command(CommandId.ADD_CAR, car);
+        SendlerClient.getInstance().send(command);
     }
 
     public void removeCar(Integer id) {
-        mapCar.remove(id);
+        Command command = new Command(CommandId.DELETE_CAR, id);
+        SendlerClient.getInstance().send(command);
     }
 
     public void updateCar(Car car) {
-        Car editCar = mapCar.get(car.getId());
-
-        mapCar.remove(car.getId());
-
-        editCar.setName(car.getName());
-        editCar.setDate(car.getDate());
-        editCar.setColor(car.getColor());
-        editCar.setAfterCrash(car.isAfterCrash());
-
-        mapCar.put(editCar.getId(), editCar);
+        Command command = new Command(CommandId.UPDATE_CAR, car);
+        SendlerClient.getInstance().send(command);
     }
 }
 

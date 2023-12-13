@@ -1,5 +1,6 @@
 package com.dmitriyevseyev.carmanager2.client.network;
 
+import com.dmitriyevseyev.carmanager2.client.network.handlers.ErrorHandlerClient;
 import com.dmitriyevseyev.carmanager2.client.network.handlers.GetAllCarsHandlerClient;
 import com.dmitriyevseyev.carmanager2.client.network.handlers.HandlerClient;
 import com.dmitriyevseyev.carmanager2.shared.Car;
@@ -25,6 +26,7 @@ public class CommandManagerClient {
     private CommandManagerClient() {
         handlerMap = new HashMap<>();
         handlerMap.put(CommandId.GET_ALL_CARS, new GetAllCarsHandlerClient());
+        handlerMap.put(CommandId.ERROR, new ErrorHandlerClient());
         /* handlerMap.put(ServerCommandIdConstants.ADD_TASK, new AddTaskHandler());
         handlerMap.put(ServerCommandIdConstants.DELETE_TASK, new DeleteTaskHandler());
         handlerMap.put(ServerCommandIdConstants.CHANGE_TASK, new ChangeTaskHandler());

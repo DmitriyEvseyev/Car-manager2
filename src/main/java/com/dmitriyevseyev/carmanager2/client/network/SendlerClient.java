@@ -30,6 +30,8 @@ public class SendlerClient {
     public void send (Command command) {
         try {
             objectOutputStream.writeObject(command);
+            objectOutputStream.flush();
+
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

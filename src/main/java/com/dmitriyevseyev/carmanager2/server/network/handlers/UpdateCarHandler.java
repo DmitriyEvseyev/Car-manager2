@@ -15,6 +15,7 @@ public class UpdateCarHandler implements HandlerServer {
         try {
             Controller.getInstance().updateCar(car);
         } catch (UpdateCarException e) {
+
             System.out.println(e.getMessage());
         }
     }
