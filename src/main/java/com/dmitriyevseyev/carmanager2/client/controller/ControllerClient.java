@@ -1,6 +1,7 @@
 package com.dmitriyevseyev.carmanager2.client.controller;
 
 import com.dmitriyevseyev.carmanager2.client.network.SendlerClient;
+import com.dmitriyevseyev.carmanager2.client.view.RefreshHelper;
 import com.dmitriyevseyev.carmanager2.server.controller.Controller;
 import com.dmitriyevseyev.carmanager2.server.exceptions.GetAllCarExeption;
 import com.dmitriyevseyev.carmanager2.shared.Car;
@@ -39,12 +40,12 @@ public class ControllerClient {
         this.mapCar = mapCar;
     }
 
-    public List<Car> getAllCars() {
+    public void getAllCars() {
         Command command = new Command(CommandId.GET_ALL_CARS, "");
         SendlerClient.getInstance().send(command);
 
-        ArrayList<Car> arrCar = new ArrayList<>(mapCar.values());
-        return Collections.unmodifiableList(arrCar);
+       // ArrayList<Car> arrCar = new ArrayList<>(mapCar.values());
+        // return Collections.unmodifiableList(arrCar);
     }
 
     public void addCar(String name, Date date, String color, boolean isAfterCrash) {
@@ -62,6 +63,7 @@ public class ControllerClient {
     public void removeCar(Integer id) {
         Command command = new Command(CommandId.DELETE_CAR, id);
         SendlerClient.getInstance().send(command);
+        RefreshHelper.getInstance().getControllerView().refresh();
     }
 
     public void updateCar(Car car) {

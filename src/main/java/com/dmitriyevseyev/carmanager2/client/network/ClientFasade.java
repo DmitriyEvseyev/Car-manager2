@@ -2,13 +2,18 @@
 package com.dmitriyevseyev.carmanager2.client.network;
 
 import com.dmitriyevseyev.carmanager2.client.controller.ControllerClient;
+import com.dmitriyevseyev.carmanager2.client.view.CarFx;
+import com.dmitriyevseyev.carmanager2.client.view.Converter;
 import com.dmitriyevseyev.carmanager2.shared.Car;
 import com.dmitriyevseyev.carmanager2.shared.Command;
 import com.dmitriyevseyev.carmanager2.shared.CommandId;
 
 import java.io.*;
 import java.net.Socket;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 import static com.dmitriyevseyev.carmanager2.shared.Constants.SERVER_PORT;
@@ -39,13 +44,16 @@ public class ClientFasade {
 
             this.objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
             this.objectInputStream = new ObjectInputStream(socket.getInputStream());
-            while (true) {
 
-                SendlerClient sendlerClient = SendlerClient.getInstance();
-                sendlerClient.setObjectOutputStream(objectOutputStream);
-
+           // while (true) {
+                SendlerClient.getInstance().setObjectOutputStream(objectOutputStream);
 
                 ControllerClient.getInstance().getAllCars();
+
+                ListenerClient listenerClient = new ListenerClient();
+                listenerClient.setObjectInputStream(objectInputStream);
+                listenerClient.read();
+
                 //ControllerClient.getInstance().removeCar(20);
                 // sendlerClient.send(new Command(CommandId.GET_ALL_CARS, ""));
 
@@ -74,7 +82,7 @@ public class ClientFasade {
                 //System.out.println(command);
                 //objectOutputStream.writeObject(command);
 
-                try {
+                /*try {
                     Command resp = (Command) objectInputStream.readObject();
                     List<Car> carL = CommandManagerClient.getInstance().processCommand(resp);
 
@@ -85,7 +93,9 @@ public class ClientFasade {
                 } catch (ClassNotFoundException e) {
                     System.out.println(e.getMessage());
                 }
-            }
+
+                 */
+           // }
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

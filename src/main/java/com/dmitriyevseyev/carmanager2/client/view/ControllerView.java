@@ -1,6 +1,8 @@
 package com.dmitriyevseyev.carmanager2.client.view;
 
 import com.dmitriyevseyev.carmanager2.client.controller.ControllerClient;
+import com.dmitriyevseyev.carmanager2.client.network.CarListView;
+import com.dmitriyevseyev.carmanager2.client.network.ClientFasade;
 import com.dmitriyevseyev.carmanager2.shared.Car;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -21,12 +23,29 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class ControllerView implements Initializable {
+    private static ControllerView instance;
     private ControllerClient controllerClient;
     private List<CarFx> rows;
+
+    public static ControllerView getInstance() {
+        if (instance == null) {
+            instance = new ControllerView();
+        }
+
+        return instance;
+    }
 
     public ControllerView() {
         this.controllerClient = ControllerClient.getInstance();
         this.rows = new ArrayList<>();
+    }
+
+    public List<CarFx> getRows() {
+        return rows;
+    }
+
+    public void setRows(List<CarFx> rows) {
+        this.rows = rows;
     }
 
     @FXML
@@ -53,9 +72,9 @@ public class ControllerView implements Initializable {
         deleteCar.setDisable(true);
         modifyCar.setDisable(true);
 
-        List<Car> carList = controllerClient.getAllCars();
+        List<Car> carList = CarListView.getInstance().getCarList();
         rows = Converter.getInstance().convertCarListToCarFxList(carList);
-
+        System.out.println("rows - " + rows);
         for (CarFx carFx : rows) {
             carFx.getCheckBox().setOnAction(actionEvent -> {
                 selectedCheckBox();

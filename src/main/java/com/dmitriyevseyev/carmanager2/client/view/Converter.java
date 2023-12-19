@@ -36,13 +36,24 @@ public class Converter {
     }
 
     public CarFx convertCarToCarFx(Car car) {
-        return CarFx.builder()
+          CarFx carFx = new CarFx(car.getId(),
+                car.getName(),
+                car.getDate().toString(),
+                car.getColor(),
+                car.isAfterCrash());
+        return carFx;
+
+
+
+       /* return CarFx.builder()
                 .id(car.getId())
                 .name(car.getName())
                 .date(car.getDate().toString())
                 .color(car.getColor())
                 .isAfterCrash(car.isAfterCrash())
                 .build();
+
+        */
     }
 
     public Car convertCarFxToCar(CarFx carFx) {

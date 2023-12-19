@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ErrorHandlerClient implements HandlerClient{
     @Override
-    public List<Car> handle(Command command) {
-        return null;
+    public void handle(Command command) {
+
     }
 }

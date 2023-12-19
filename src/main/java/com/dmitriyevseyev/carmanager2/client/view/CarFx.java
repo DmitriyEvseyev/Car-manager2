@@ -1,11 +1,11 @@
 package com.dmitriyevseyev.carmanager2.client.view;
 
+
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.scene.control.CheckBox;
 
-import java.time.LocalDate;
 import java.util.Objects;
 
 public class CarFx {
@@ -16,7 +16,7 @@ public class CarFx {
     private SimpleBooleanProperty isAfterCrash;
     private CheckBox checkBox;
 
-    public CarFx() {
+    public CarFx(Integer id, String name, String date, String color, boolean isAfterCrash, CheckBox checkBox) {
     }
 
     public CarFx(Integer id, String name, String date, String color, Boolean isAfterCrash) {
@@ -159,6 +159,7 @@ public class CarFx {
 
         public Builder color(String color) {
             this.color = color;
+
             return this;
         }
 
@@ -180,7 +181,8 @@ public class CarFx {
                     name,
                     date,
                     color,
-                    isAfterCrash
+                    isAfterCrash,
+                    checkBox
             );
         }
     }

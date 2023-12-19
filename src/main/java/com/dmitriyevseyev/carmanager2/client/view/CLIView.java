@@ -10,8 +10,8 @@ import java.io.IOException;
 
 public class CLIView extends javafx.application.Application {
 
-    public static void run(String[] args) {
-        Application.launch(args);
+    public static void run() {
+        Application.launch();
     }
 
     @Override

@@ -7,5 +7,5 @@ import java.util.HashMap;
 import java.util.List;
 
 public interface HandlerClient {
-     List<Car> handle(Command command);
+     public  void handle(Command command);
 }

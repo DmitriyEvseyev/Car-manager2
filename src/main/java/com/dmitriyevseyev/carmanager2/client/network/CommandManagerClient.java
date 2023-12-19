@@ -36,9 +36,9 @@ public class CommandManagerClient {
         */
     }
 
-    public List<Car> processCommand(Command command) {
-        List <Car> carListHandler = handlerMap.get(command.getAction()).handle(command);
-        return   carListHandler;
+    public void processCommand(Command command) {
+         handlerMap.get(command.getAction()).handle(command);
+
     }
 }
 
