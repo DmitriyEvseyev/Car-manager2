@@ -1,6 +1,6 @@
 package com.dmitriyevseyev.carmanager2.client.network.handlers;
 
-import com.dmitriyevseyev.carmanager2.client.network.CarListView;
+import com.dmitriyevseyev.carmanager2.client.network.CarMap;
 import com.dmitriyevseyev.carmanager2.client.view.*;
 import com.dmitriyevseyev.carmanager2.shared.Car;
 import com.dmitriyevseyev.carmanager2.shared.Command;
@@ -20,12 +20,16 @@ public class GetAllCarsHandlerClient implements HandlerClient {
         controllerView.setRows(carFxList);
         System.out.println("carFxList - " + carFxList);
          */
+        HashMap<Integer, Car> map = new HashMap<>();
+        for (Car car : carL) {
+            map.put(car.getId(), car);
+        }
 
-        CarListView.getInstance().setCarList(carL);
-        List<Car> carList = CarListView.getInstance().getCarList();
-        System.out.println("CarListView - " + carList);
+        CarMap.getInstance().setCarMap(map);
 
-        CLIView.run();
+        System.out.println("CarMap - " + CarMap.getInstance().getCarMap());
+
+       // CLIView.run();
 
         RefreshHelper.getInstance().getControllerView().refresh();
 

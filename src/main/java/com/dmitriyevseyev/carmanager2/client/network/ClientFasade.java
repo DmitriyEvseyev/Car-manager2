@@ -2,8 +2,10 @@
 package com.dmitriyevseyev.carmanager2.client.network;
 
 import com.dmitriyevseyev.carmanager2.client.controller.ControllerClient;
+import com.dmitriyevseyev.carmanager2.client.view.CLIView;
 import com.dmitriyevseyev.carmanager2.client.view.CarFx;
 import com.dmitriyevseyev.carmanager2.client.view.Converter;
+import com.dmitriyevseyev.carmanager2.client.view.RefreshHelper;
 import com.dmitriyevseyev.carmanager2.shared.Car;
 import com.dmitriyevseyev.carmanager2.shared.Command;
 import com.dmitriyevseyev.carmanager2.shared.CommandId;
@@ -12,6 +14,7 @@ import java.io.*;
 import java.net.Socket;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
@@ -45,21 +48,41 @@ public class ClientFasade {
             this.objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
             this.objectInputStream = new ObjectInputStream(socket.getInputStream());
 
-           // while (true) {
-                SendlerClient.getInstance().setObjectOutputStream(objectOutputStream);
+            // while (true) {
+            SendlerClient sendlerCl = SendlerClient.getInstance();
+            sendlerCl.setObjectOutputStream(objectOutputStream);
+            sendlerCl.send(new Command(CommandId.GET_ALL_CARS, ""));
 
-                ControllerClient.getInstance().getAllCars();
+            // ControllerClient.getInstance().getAllCars();
 
-                ListenerClient listenerClient = new ListenerClient();
-                listenerClient.setObjectInputStream(objectInputStream);
-                listenerClient.read();
+            ListenerClient listenerClient = new ListenerClient();
+            listenerClient.setObjectInputStream(objectInputStream);
 
-                //ControllerClient.getInstance().removeCar(20);
-                // sendlerClient.send(new Command(CommandId.GET_ALL_CARS, ""));
+            try {
+                Command responce = (Command) objectInputStream.readObject();
+                List<Car> carL = (List<Car>) responce.getData();
+                HashMap<Integer, Car> map = new HashMap<>();
+                for (Car car : carL) {
+                    map.put(car.getId(), car);
+                }
+                CarMap.getInstance().setCarMap(map);
 
-                //Command command = new Command(CommandId.GET_ALL_CARS, "");
+                System.out.println("CarMap - " + CarMap.getInstance().getCarMap());
 
-                //Command command = new Command(CommandId.DELETE_CAR, "19");
+                CLIView.run();
+
+               // RefreshHelper.getInstance().getControllerView().refresh();
+
+            } catch (ClassNotFoundException e) {
+                System.out.println(e.getMessage());
+            }
+
+            //ControllerClient.getInstance().removeCar(20);
+            // sendlerClient.send(new Command(CommandId.GET_ALL_CARS, ""));
+
+            //Command command = new Command(CommandId.GET_ALL_CARS, "");
+
+            //Command command = new Command(CommandId.DELETE_CAR, "19");
 
            /* Integer idRandom = new Random().nextInt(100 + 1);
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
@@ -79,8 +102,8 @@ public class ClientFasade {
 
             */
 
-                //System.out.println(command);
-                //objectOutputStream.writeObject(command);
+            //System.out.println(command);
+            //objectOutputStream.writeObject(command);
 
                 /*try {
                     Command resp = (Command) objectInputStream.readObject();
@@ -95,7 +118,7 @@ public class ClientFasade {
                 }
 
                  */
-           // }
+            // }
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

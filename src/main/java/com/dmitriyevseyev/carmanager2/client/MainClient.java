@@ -1,16 +1,7 @@
 package com.dmitriyevseyev.carmanager2.client;
 
 import com.dmitriyevseyev.carmanager2.client.network.ClientFasade;
-import com.dmitriyevseyev.carmanager2.client.view.CLIView;
-import com.dmitriyevseyev.carmanager2.client.view.CarFx;
-import com.dmitriyevseyev.carmanager2.client.view.RefreshHelper;
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
-import java.io.IOException;
 
 public class MainClient  {
     public static void main(String[] args) {

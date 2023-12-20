@@ -1,5 +1,6 @@
 package com.dmitriyevseyev.carmanager2.client.controller;
 
+import com.dmitriyevseyev.carmanager2.client.network.CarMap;
 import com.dmitriyevseyev.carmanager2.client.network.SendlerClient;
 import com.dmitriyevseyev.carmanager2.client.view.RefreshHelper;
 import com.dmitriyevseyev.carmanager2.server.controller.Controller;
@@ -58,6 +59,14 @@ public class ControllerClient {
 
         Command command = new Command(CommandId.ADD_CAR, car);
         SendlerClient.getInstance().send(command);
+
+        //ControllerClient.getInstance().getAllCars();
+
+       Command commandRefresh = new Command(CommandId.GET_ALL_CARS, "");
+       SendlerClient.getInstance().send(commandRefresh);
+
+        System.out.println("CONTROL - " + CarMap.getInstance().getCarMap());
+        // RefreshHelper.getInstance().getControllerView().refresh();
     }
 
     public void removeCar(Integer id) {

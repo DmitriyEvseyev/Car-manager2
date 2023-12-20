@@ -1,7 +1,7 @@
 package com.dmitriyevseyev.carmanager2.client.view;
 
 import com.dmitriyevseyev.carmanager2.client.controller.ControllerClient;
-import com.dmitriyevseyev.carmanager2.client.network.CarListView;
+import com.dmitriyevseyev.carmanager2.client.network.CarMap;
 import com.dmitriyevseyev.carmanager2.client.network.ClientFasade;
 import com.dmitriyevseyev.carmanager2.shared.Car;
 import javafx.collections.FXCollections;
@@ -72,7 +72,7 @@ public class ControllerView implements Initializable {
         deleteCar.setDisable(true);
         modifyCar.setDisable(true);
 
-        List<Car> carList = CarListView.getInstance().getCarList();
+        List<Car> carList = new ArrayList<>(CarMap.getInstance().getCarMap().values());
         rows = Converter.getInstance().convertCarListToCarFxList(carList);
         System.out.println("rows - " + rows);
         for (CarFx carFx : rows) {
