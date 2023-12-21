@@ -27,6 +27,7 @@ public class ClientFasade {
     private Socket socket;
     private ObjectOutputStream objectOutputStream;
     private ObjectInputStream objectInputStream;
+    private ObjectInputStream objectInputStr;
 
 
     public static ClientFasade getInstance() {
@@ -47,6 +48,7 @@ public class ClientFasade {
 
             this.objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
             this.objectInputStream = new ObjectInputStream(socket.getInputStream());
+            this.objectInputStr = new ObjectInputStream(socket.getInputStream());
 
             // while (true) {
             SendlerClient sendlerCl = SendlerClient.getInstance();
@@ -67,7 +69,7 @@ public class ClientFasade {
                 }
                 CarMap.getInstance().setCarMap(map);
 
-                System.out.println("CarMap - " + CarMap.getInstance().getCarMap());
+                System.out.println("CARMAP fasade - " + CarMap.getInstance().getCarMap());
 
                 CLIView.run();
 
