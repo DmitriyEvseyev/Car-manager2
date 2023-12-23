@@ -32,7 +32,6 @@ public class ListenerClient {
         try {
             Command responce = (Command) objectInputStream.readObject();
             CommandManagerClient.getInstance().processCommand(responce);
-            System.out.println("ListenerClient responce - " + responce);
 
         } catch (ClassNotFoundException e) {
             System.out.println(e.getMessage());

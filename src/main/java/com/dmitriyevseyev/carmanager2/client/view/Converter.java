@@ -43,8 +43,6 @@ public class Converter {
                 car.isAfterCrash());
         return carFx;
 
-
-
        /* return CarFx.builder()
                 .id(car.getId())
                 .name(car.getName())
@@ -52,7 +50,6 @@ public class Converter {
                 .color(car.getColor())
                 .isAfterCrash(car.isAfterCrash())
                 .build();
-
         */
     }
 

@@ -2,11 +2,8 @@ package com.dmitriyevseyev.carmanager2.client.view;
 
 import com.dmitriyevseyev.carmanager2.client.controller.ControllerClient;
 import com.dmitriyevseyev.carmanager2.client.network.CarMap;
-import com.dmitriyevseyev.carmanager2.client.network.ClientFasade;
-import com.dmitriyevseyev.carmanager2.client.network.SendlerClient;
 import com.dmitriyevseyev.carmanager2.shared.Car;
-import com.dmitriyevseyev.carmanager2.shared.Command;
-import com.dmitriyevseyev.carmanager2.shared.CommandId;
+
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -75,11 +72,9 @@ public class ControllerView implements Initializable {
         deleteCar.setDisable(true);
         modifyCar.setDisable(true);
 
-        //Command commandRefresh = new Command(CommandId.GET_ALL_CARS, "");
-        //SendlerClient.getInstance().send(commandRefresh);
-
         List<Car> carList = new ArrayList<>(CarMap.getInstance().getCarMap().values());
         rows = Converter.getInstance().convertCarListToCarFxList(carList);
+
         System.out.println("rows - " + rows);
         for (CarFx carFx : rows) {
             carFx.getCheckBox().setOnAction(actionEvent -> {

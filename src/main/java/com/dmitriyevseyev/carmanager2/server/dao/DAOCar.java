@@ -52,7 +52,7 @@ public class DAOCar implements DAOInterface {
 
         try (PreparedStatement stm = connection.prepareStatement(sql);) {
             stm.setString(1, car.getName());
-            stm.setDate(2, (java.sql.Date) car.getDate());
+            stm.setDate(2, (new java.sql.Date(car.getDate().getTime())));
             stm.setString(3, car.getColor());
             stm.setBoolean(4, car.isAfterCrash());
             stm.setInt(5, car.getId());
