@@ -35,14 +35,10 @@ public class Controller {
         }
     }
 
-    public void addCar(String name, Date date, String color, boolean isAfterCrash) throws AddCarExeption {
+    public void addCar(Car car) throws AddCarExeption {
         // dao
         try {
-            daoCar.createCar(
-                    name,
-                    date,
-                    color,
-                    isAfterCrash);
+            daoCar.createCar(car);
         } catch (SQLException e) {
             throw new AddCarExeption(String.format("Error: %s. Code: %s", e.getMessage(), e.getSQLState()));
         }

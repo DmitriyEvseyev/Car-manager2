@@ -75,7 +75,8 @@ public class ControllerView implements Initializable {
         List<Car> carList = new ArrayList<>(CarMap.getInstance().getCarMap().values());
         rows = Converter.getInstance().convertCarListToCarFxList(carList);
 
-        System.out.println("rows - " + rows);
+        System.out.println("rows (ControllerView) - " + rows + "\n");
+
         for (CarFx carFx : rows) {
             carFx.getCheckBox().setOnAction(actionEvent -> {
                 selectedCheckBox();
@@ -127,7 +128,6 @@ public class ControllerView implements Initializable {
                 controllerClient.removeCar(carFx.getId());
             }
         }
-        refresh();
     }
 
     @FXML
@@ -152,7 +152,6 @@ public class ControllerView implements Initializable {
                 }
             }
         }
-        refresh();
     }
 
     @FXML
@@ -173,7 +172,6 @@ public class ControllerView implements Initializable {
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }
-        refresh();
     }
 }
 

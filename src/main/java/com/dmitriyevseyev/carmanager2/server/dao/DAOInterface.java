@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface DAOInterface {
-    public void createCar(String name, Date date, String color, boolean isAfterCrash) throws SQLException;
+    public void createCar(Car car) throws SQLException;
 
     public Car read(Integer id) throws SQLException;
 

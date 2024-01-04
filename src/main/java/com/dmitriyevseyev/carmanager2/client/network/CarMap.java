@@ -9,6 +9,7 @@ public class CarMap {
     private HashMap<Integer, Car> carMap;
 
     private CarMap() {
+        carMap = new HashMap<>();
     }
 
     public static CarMap getInstance() {

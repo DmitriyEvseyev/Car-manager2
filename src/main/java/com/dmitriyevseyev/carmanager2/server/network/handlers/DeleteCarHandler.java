@@ -13,15 +13,26 @@ public class DeleteCarHandler implements HandlerServer {
     public void handle(Command command) {
 
         Integer id = (Integer) command.getData();
-        System.out.println("del ID - " + id);
+        System.out.println("It will be deleted ID - " + id);
         try {
             Controller.getInstance().removeCar(id);
         } catch (NotFoundException e) {
-            System.out.println(e.getMessage());
+            System.out.println("There is no this car. " + e.getMessage());
         } catch (DeleteCarExeption e) {
             Command error = new Command(CommandId.ERROR,"error DeleteCar,  " + e.getMessage());
             SevserFasade.getInstance().sendler(error);
             System.out.println(e.getMessage());
         }
+
+        try {
+            Command com = new Command(CommandId.GET_ALL_CARS, Controller.getInstance().getAllCars());
+            System.out.println("Com responce (GetAllCarsHandler/DeleteCarHandler) - " + com + "\n");
+            SevserFasade.getInstance().sendler(com);
+        } catch (GetAllCarExeption e) {
+            Command error = new Command(CommandId.ERROR, "error GetAllCars,  " + e.getMessage());
+            SevserFasade.getInstance().sendler(error);
+            System.out.println(e.getMessage());
+        }
+
     }
 }

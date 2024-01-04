@@ -14,7 +14,7 @@ public class GetAllCarsHandler implements HandlerServer {
 
         try {
             Command com = new Command(command.getAction(), Controller.getInstance().getAllCars());
-            System.out.println("Com responce - " + com);
+            System.out.println("Com responce (GetAllCarsHandler) - " + com + "\n");
             SevserFasade.getInstance().sendler(com);
 
         } catch (GetAllCarExeption e) {

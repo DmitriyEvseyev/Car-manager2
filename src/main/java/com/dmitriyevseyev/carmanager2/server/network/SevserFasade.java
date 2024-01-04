@@ -1,6 +1,7 @@
 package com.dmitriyevseyev.carmanager2.server.network;
 
 import com.dmitriyevseyev.carmanager2.shared.Command;
+import com.dmitriyevseyev.carmanager2.shared.CommandId;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -26,6 +27,7 @@ public class SevserFasade {
     }
 
     public void connect() {
+
         try {
             server = new ServerSocket(Integer.parseInt(SERVER_PORT));
             System.out.println("The server is running!");
@@ -33,20 +35,24 @@ public class SevserFasade {
             this.objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
             this.objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
 
-            Command request = null;
-            while (true) {
+            CommandManagerServer.getInstance().processCommand(new Command(CommandId.GET_ALL_CARS, ""));
 
-                try {
-                    request = (Command) objectInputStream.readObject();
-                    System.out.println("request - " + request);
-                    CommandManagerServer.getInstance().processCommand(request);
-
-                } catch (ClassNotFoundException ex) {
-                    System.out.println(ex.getMessage());
-                }
-            }
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println("ConnectionServerError " + e.getMessage());
+        }
+
+        Command request = null;
+        while (!clientSocket.isClosed()) {
+            try {
+                request = (Command) objectInputStream.readObject();
+                System.out.println("request - " + request);
+                CommandManagerServer.getInstance().processCommand(request);
+
+            } catch (IOException e) {
+                System.out.println("ReadObjectServerError " + e.getMessage());
+            } catch (ClassNotFoundException ex) {
+                System.out.println("ClassNotFoundExceptionServerError " + ex.getMessage());
+            }
         }
     }
 

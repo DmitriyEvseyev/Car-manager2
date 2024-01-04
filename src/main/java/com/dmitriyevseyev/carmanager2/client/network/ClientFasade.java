@@ -1,4 +1,3 @@
-
 package com.dmitriyevseyev.carmanager2.client.network;
 
 import com.dmitriyevseyev.carmanager2.shared.Car;
@@ -29,6 +28,14 @@ public class ClientFasade {
     private ClientFasade() {
     }
 
+    public Socket getSocket() {
+        return socket;
+    }
+
+    public void setSocket(Socket socket) {
+        this.socket = socket;
+    }
+
     public void connect() {
         try {
             this.socket = new Socket(SERVER_URL, Integer.parseInt(SERVER_PORT));
@@ -39,7 +46,6 @@ public class ClientFasade {
 
             SendlerClient sendlerCl = SendlerClient.getInstance();
             sendlerCl.setObjectOutputStream(objectOutputStream);
-            sendlerCl.send(new Command(CommandId.GET_ALL_CARS, ""));
 
             ListenerClient listenerClient = ListenerClient.getInstance();
             listenerClient.setObjectInputStream(objectInputStream);
@@ -52,12 +58,13 @@ public class ClientFasade {
                     map.put(car.getId(), car);
                 }
                 CarMap.getInstance().setCarMap(map);
-
                 System.out.println("CARMAP FASADE - " + CarMap.getInstance().getCarMap());
-
             } catch (ClassNotFoundException e) {
-                System.out.println(e.getMessage());
+                System.out.println("ClientFasadeConnectionError. " + e.getMessage());
             }
+
+            listenerClient.start();
+
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

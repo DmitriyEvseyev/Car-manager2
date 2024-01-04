@@ -27,10 +27,7 @@ public class CommandManagerClient {
         handlerMap = new HashMap<>();
         handlerMap.put(CommandId.GET_ALL_CARS, new GetAllCarsHandlerClient());
         handlerMap.put(CommandId.ERROR, new ErrorHandlerClient());
-        /* handlerMap.put(ServerCommandIdConstants.ADD_TASK, new AddTaskHandler());
-        handlerMap.put(ServerCommandIdConstants.DELETE_TASK, new DeleteTaskHandler());
-        handlerMap.put(ServerCommandIdConstants.CHANGE_TASK, new ChangeTaskHandler());
-
+       /*
         handlerMap.put(ServerCommandIdConstants.DISCONNECT, new DisconnectHandler());
         handlerMap.put(ServerCommandIdConstants.ALL_DISCONNECT, new AllDisconnectHandler());
         */

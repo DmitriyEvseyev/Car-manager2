@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
-public class ListenerClient {
+public class ListenerClient extends Thread {
     private ObjectInputStream objectInputStream;
     private static ListenerClient instance;
 
@@ -28,15 +28,26 @@ public class ListenerClient {
         this.objectInputStream = objectInputStream;
     }
 
-    public void read() {
-        try {
-            Command responce = (Command) objectInputStream.readObject();
-            CommandManagerClient.getInstance().processCommand(responce);
+    public void run() {
+        while (true) {
+            Command responce = null;
+            try {
+                /*try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    System.out.println("ListenerSleepEx - " + e.getMessage());
+                }
 
-        } catch (ClassNotFoundException e) {
-            System.out.println(e.getMessage());
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+                 */
+                responce = (Command) objectInputStream.readObject();
+                System.out.println("ListenerClient + " + responce);
+            } catch (IOException e) {
+                System.out.println("ListenerClient error, IOException." + e.getMessage());
+            } catch (ClassNotFoundException e) {
+                System.out.println("ListenerClient error, ClassNotFoundException" + e.getMessage());
+            }
+            CommandManagerClient.getInstance().processCommand(responce);
         }
     }
 }
+

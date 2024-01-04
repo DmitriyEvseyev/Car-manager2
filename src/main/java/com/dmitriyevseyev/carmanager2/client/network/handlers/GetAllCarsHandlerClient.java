@@ -18,9 +18,11 @@ public class GetAllCarsHandlerClient implements HandlerClient {
         for (Car car : carL) {
             map.put(car.getId(), car);
         }
-
         CarMap.getInstance().setCarMap(map);
-        System.out.println("CarMap - " + CarMap.getInstance().getCarMap());
+        System.out.println("CarMap (GetAllCarsHandlerClient) - " + CarMap.getInstance().getCarMap());
+
+        RefreshHelper.getInstance().getControllerView().setRows(Converter.getInstance().convertCarListToCarFxList(carL));
+        RefreshHelper.getInstance().getControllerView().refresh();
     }
 }
 

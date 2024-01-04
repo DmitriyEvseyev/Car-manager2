@@ -1,5 +1,7 @@
 package com.dmitriyevseyev.carmanager2.client.view;
 
+import com.dmitriyevseyev.carmanager2.client.network.ClientFasade;
+import com.dmitriyevseyev.carmanager2.client.network.ListenerClient;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -14,6 +16,7 @@ public class CLIView extends javafx.application.Application {
         Application.launch();
     }
 
+
     @Override
     public void start(Stage stage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("/com.dmitriyevseyev.car-manager2.fxml/view.fxml"));
@@ -22,5 +25,14 @@ public class CLIView extends javafx.application.Application {
         stage.show();
         RefreshHelper.getInstance().getControllerView().refresh();
     }
+
+   /* @Override
+    public void stop() throws Exception {
+        super.stop();
+        ListenerClient.getInstance().getObjectInputStream().close();
+        ClientFasade.getInstance().getSocket().close();
+    }
+
+    */
 }
 

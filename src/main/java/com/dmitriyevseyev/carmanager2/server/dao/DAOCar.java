@@ -23,14 +23,14 @@ public class DAOCar implements DAOInterface {
     }
 
     @Override
-    public void createCar(String name, Date date, String color, boolean isAfterCrash) throws SQLException {
+    public void createCar(Car car) throws SQLException {
         String sql = "INSERT INTO CAR (NAME, DATE, COLOR, ISAFTERCRASH)  VALUES (?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
-            stmt.setString(1, name);
-            stmt.setDate(2, (new java.sql.Date(date.getTime())));
-            stmt.setString(3, color);
-            stmt.setBoolean(4, isAfterCrash);
+            stmt.setString(1, car.getName());
+            stmt.setDate(2, (new java.sql.Date(car.getDate().getTime())));
+            stmt.setString(3, car.getColor());
+            stmt.setBoolean(4, car.isAfterCrash());
             stmt.executeUpdate();
         }
     }
