@@ -9,6 +9,7 @@ import java.io.ObjectOutputStream;
 public class ListenerClient extends Thread {
     private ObjectInputStream objectInputStream;
     private static ListenerClient instance;
+    private boolean exit;
 
     public static ListenerClient getInstance() {
         if (instance == null) {
@@ -20,6 +21,14 @@ public class ListenerClient extends Thread {
     public ListenerClient() {
     }
 
+    public boolean isExit() {
+        return exit;
+    }
+
+    public void setExit(boolean exit) {
+        this.exit = exit;
+    }
+
     public ObjectInputStream getObjectInputStream() {
         return objectInputStream;
     }
@@ -29,8 +38,9 @@ public class ListenerClient extends Thread {
     }
 
     public void run() {
+        exit = true;
         try {
-            while (!this.isInterrupted()) {
+            while (exit) {
                 Command responce = (Command) objectInputStream.readObject();
                 System.out.println("ListenerClient + " + responce);
                 CommandManagerClient.getInstance().processCommand(responce);
