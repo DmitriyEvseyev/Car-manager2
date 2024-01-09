@@ -29,25 +29,19 @@ public class ListenerClient extends Thread {
     }
 
     public void run() {
-        while (true) {
-            Command responce = null;
-            try {
-                /*try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    System.out.println("ListenerSleepEx - " + e.getMessage());
-                }
-
-                 */
-                responce = (Command) objectInputStream.readObject();
+        try {
+            while (!this.isInterrupted()) {
+                Command responce = (Command) objectInputStream.readObject();
                 System.out.println("ListenerClient + " + responce);
-            } catch (IOException e) {
-                System.out.println("ListenerClient error, IOException." + e.getMessage());
-            } catch (ClassNotFoundException e) {
-                System.out.println("ListenerClient error, ClassNotFoundException" + e.getMessage());
+                CommandManagerClient.getInstance().processCommand(responce);
             }
-            CommandManagerClient.getInstance().processCommand(responce);
+            objectInputStream.close();
+        } catch (IOException e) {
+            System.out.println("ListenerClient error, IOException. " + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.out.println("ListenerClient error, ClassNotFoundException" + e.getMessage());
         }
     }
 }
+
 

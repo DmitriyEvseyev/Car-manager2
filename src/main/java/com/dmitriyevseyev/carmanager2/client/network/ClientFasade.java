@@ -17,6 +17,7 @@ public class ClientFasade {
     private Socket socket;
     private ObjectOutputStream objectOutputStream;
     private ObjectInputStream objectInputStream;
+    private ListenerClient listenerClient;
 
     public static ClientFasade getInstance() {
         if (instance == null) {
@@ -28,12 +29,12 @@ public class ClientFasade {
     private ClientFasade() {
     }
 
-    public Socket getSocket() {
-        return socket;
+    public ListenerClient getListenerClient() {
+        return listenerClient;
     }
 
-    public void setSocket(Socket socket) {
-        this.socket = socket;
+    public void setListenerClient(ListenerClient listenerClient) {
+        this.listenerClient = listenerClient;
     }
 
     public void connect() {
@@ -47,7 +48,7 @@ public class ClientFasade {
             SendlerClient sendlerCl = SendlerClient.getInstance();
             sendlerCl.setObjectOutputStream(objectOutputStream);
 
-            ListenerClient listenerClient = ListenerClient.getInstance();
+            listenerClient = ListenerClient.getInstance();
             listenerClient.setObjectInputStream(objectInputStream);
 
             try {
@@ -70,3 +71,4 @@ public class ClientFasade {
         }
     }
 }
+

@@ -15,6 +15,7 @@ public class SevserFasade {
     private static ServerSocket server;
     private ObjectOutputStream objectOutputStream;
     private ObjectInputStream objectInputStream;
+    private boolean exit;
 
     public static SevserFasade getInstance() {
         if (instance == null) {
@@ -26,7 +27,16 @@ public class SevserFasade {
     private SevserFasade() {
     }
 
+    public boolean isExit() {
+        return exit;
+    }
+
+    public void setExit(boolean exit) {
+        this.exit = exit;
+    }
+
     public void connect() {
+        exit = true;
 
         try {
             server = new ServerSocket(Integer.parseInt(SERVER_PORT));
@@ -42,7 +52,7 @@ public class SevserFasade {
         }
 
         Command request = null;
-        while (!clientSocket.isClosed()) {
+        while (exit) {
             try {
                 request = (Command) objectInputStream.readObject();
                 System.out.println("request - " + request);

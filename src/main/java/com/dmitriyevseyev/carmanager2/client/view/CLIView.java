@@ -2,6 +2,9 @@ package com.dmitriyevseyev.carmanager2.client.view;
 
 import com.dmitriyevseyev.carmanager2.client.network.ClientFasade;
 import com.dmitriyevseyev.carmanager2.client.network.ListenerClient;
+import com.dmitriyevseyev.carmanager2.client.network.SendlerClient;
+import com.dmitriyevseyev.carmanager2.shared.Command;
+import com.dmitriyevseyev.carmanager2.shared.CommandId;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -26,13 +29,13 @@ public class CLIView extends javafx.application.Application {
         RefreshHelper.getInstance().getControllerView().refresh();
     }
 
-   /* @Override
+    @Override
     public void stop() throws Exception {
         super.stop();
-        ListenerClient.getInstance().getObjectInputStream().close();
-        ClientFasade.getInstance().getSocket().close();
+        Command command = new Command(CommandId.DISCONNECT, "");
+        SendlerClient.getInstance().send(command);
+        //ListenerClient.getInstance().getObjectInputStream().close();
+        //ClientFasade.getInstance().getSocket().close();
     }
-
-    */
 }
 

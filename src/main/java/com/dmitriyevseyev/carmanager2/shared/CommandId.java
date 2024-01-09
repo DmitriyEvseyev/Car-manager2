@@ -6,5 +6,6 @@ public class CommandId {
     public final static Integer DELETE_CAR = 2;
     public final static Integer UPDATE_CAR = 3;
     public final static Integer ERROR = 4;
+    public final static Integer DISCONNECT = 5;
 
 }

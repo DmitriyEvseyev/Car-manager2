@@ -1,5 +1,6 @@
 package com.dmitriyevseyev.carmanager2.client.network;
 
+import com.dmitriyevseyev.carmanager2.client.network.handlers.DisconnectHandlerClient;
 import com.dmitriyevseyev.carmanager2.client.network.handlers.ErrorHandlerClient;
 import com.dmitriyevseyev.carmanager2.client.network.handlers.GetAllCarsHandlerClient;
 import com.dmitriyevseyev.carmanager2.client.network.handlers.HandlerClient;
@@ -27,14 +28,12 @@ public class CommandManagerClient {
         handlerMap = new HashMap<>();
         handlerMap.put(CommandId.GET_ALL_CARS, new GetAllCarsHandlerClient());
         handlerMap.put(CommandId.ERROR, new ErrorHandlerClient());
-       /*
-        handlerMap.put(ServerCommandIdConstants.DISCONNECT, new DisconnectHandler());
-        handlerMap.put(ServerCommandIdConstants.ALL_DISCONNECT, new AllDisconnectHandler());
-        */
+        handlerMap.put(CommandId.DISCONNECT, new DisconnectHandlerClient());
+        //handlerMap.put(ServerCommandIdConstants.ALL_DISCONNECT, new AllDisconnectHandler());
     }
 
     public void processCommand(Command command) {
-         handlerMap.get(command.getAction()).handle(command);
+        handlerMap.get(command.getAction()).handle(command);
 
     }
 }

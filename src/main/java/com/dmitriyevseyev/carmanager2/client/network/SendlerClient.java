@@ -33,7 +33,15 @@ public class SendlerClient {
             objectOutputStream.flush();
 
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println("SendlerClientError. " + e.getMessage());
+        }
+    }
+
+    public void close () {
+        try {
+            objectOutputStream.close();
+        } catch (IOException e) {
+            System.out.println("SendlerClientError/ objectOutputStreamClose. " + e.getMessage());
         }
     }
 }
