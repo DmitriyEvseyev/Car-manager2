@@ -10,6 +10,7 @@ public class DisconnectHandlerClient implements HandlerClient {
     public void handle(Command command) {
         System.out.println(command);
         ListenerClient.getInstance().setExit(false);
+
        // ClientFasade.getInstance().getListenerClient().isInterrupted();
         SendlerClient.getInstance().close();
 

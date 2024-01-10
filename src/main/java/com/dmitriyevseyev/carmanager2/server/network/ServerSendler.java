@@ -1,0 +1,48 @@
+package com.dmitriyevseyev.carmanager2.server.network;
+
+import com.dmitriyevseyev.carmanager2.shared.Command;
+
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+
+public class ServerSendler {
+    private ObjectOutputStream objectOutputStream;
+    private static ServerSendler instance;
+
+    public static ServerSendler getInstance() {
+        if (instance == null) {
+            instance = new ServerSendler();
+        }
+        return instance;
+    }
+
+    public ServerSendler() {
+    }
+
+    public ObjectOutputStream getObjectOutputStream() {
+        return objectOutputStream;
+    }
+
+    public void setObjectOutputStream(ObjectOutputStream objectOutputStream) {
+        this.objectOutputStream = objectOutputStream;
+    }
+
+    public void send (Command command) {
+        try {
+            objectOutputStream.writeObject(command);
+            objectOutputStream.flush();
+
+        } catch (IOException e) {
+            System.out.println("ServerSendlerError. " + e.getMessage());
+        }
+    }
+
+    public void close () {
+        try {
+            objectOutputStream.close();
+        } catch (IOException e) {
+            System.out.println("ServerSendlerError/ objectOutputStreamClose. " + e.getMessage());
+        }
+    }
+}
+

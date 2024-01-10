@@ -72,6 +72,9 @@ public class AddCarController {
         if (nameField.getText() == null || nameField.getText().length() == 0) {
             errorMessage += "No valid name!\n";
         }
+        if (date == null || date.length() == 0) {
+            errorMessage += "Invalid date!\n";
+        }
         if (colorField.getText() == null || colorField.getText().length() == 0) {
             errorMessage += "Invalid color!\n";
         }
@@ -80,7 +83,7 @@ public class AddCarController {
             return true;
         } else {
             Alert alert = new Alert(AlertType.ERROR);
-            alert.initOwner(dialogStage);
+           // alert.initOwner(dialogStage);
             alert.setTitle("Invalid Fields");
             alert.setHeaderText("Please correct invalid fields");
             alert.setContentText(errorMessage);

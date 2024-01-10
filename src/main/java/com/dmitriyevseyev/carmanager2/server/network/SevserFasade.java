@@ -15,7 +15,8 @@ public class SevserFasade {
     private static ServerSocket server;
     private ObjectOutputStream objectOutputStream;
     private ObjectInputStream objectInputStream;
-    private boolean exit;
+    private ServerrListener serverrListener;
+    private ServerSendler serverSendler;
 
     public static SevserFasade getInstance() {
         if (instance == null) {
@@ -27,17 +28,7 @@ public class SevserFasade {
     private SevserFasade() {
     }
 
-    public boolean isExit() {
-        return exit;
-    }
-
-    public void setExit(boolean exit) {
-        this.exit = exit;
-    }
-
     public void connect() {
-        exit = true;
-
         try {
             server = new ServerSocket(Integer.parseInt(SERVER_PORT));
             System.out.println("The server is running!");
@@ -45,32 +36,17 @@ public class SevserFasade {
             this.objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
             this.objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
 
+            serverSendler = ServerSendler.getInstance();
+            serverSendler.setObjectOutputStream(objectOutputStream);
+
             CommandManagerServer.getInstance().processCommand(new Command(CommandId.GET_ALL_CARS, ""));
 
+            serverrListener = ServerrListener.getInstance();
+            serverrListener.setObjectInputStream(objectInputStream);
+            serverrListener.start();
+
         } catch (IOException e) {
-            System.out.println("ConnectionServerError " + e.getMessage());
-        }
-
-        Command request = null;
-        while (exit) {
-            try {
-                request = (Command) objectInputStream.readObject();
-                System.out.println("request - " + request);
-                CommandManagerServer.getInstance().processCommand(request);
-
-            } catch (IOException e) {
-                System.out.println("ReadObjectServerError " + e.getMessage());
-            } catch (ClassNotFoundException ex) {
-                System.out.println("ClassNotFoundExceptionServerError " + ex.getMessage());
-            }
-        }
-    }
-
-    public void sendler(Command command) {
-        try {
-            this.objectOutputStream.writeObject(command);
-        } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println("ConnectionServerError. " + e.getMessage());
         }
     }
 }

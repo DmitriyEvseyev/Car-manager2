@@ -2,6 +2,7 @@ package com.dmitriyevseyev.carmanager2.server.network.handlers;
 
 import com.dmitriyevseyev.carmanager2.server.controller.Controller;
 import com.dmitriyevseyev.carmanager2.server.exceptions.GetAllCarExeption;
+import com.dmitriyevseyev.carmanager2.server.network.ServerSendler;
 import com.dmitriyevseyev.carmanager2.server.network.SevserFasade;
 import com.dmitriyevseyev.carmanager2.shared.Command;
 import com.dmitriyevseyev.carmanager2.shared.CommandId;
@@ -15,11 +16,11 @@ public class GetAllCarsHandler implements HandlerServer {
         try {
             Command com = new Command(command.getAction(), Controller.getInstance().getAllCars());
             System.out.println("Com responce (GetAllCarsHandler) - " + com + "\n");
-            SevserFasade.getInstance().sendler(com);
+            ServerSendler.getInstance().send(com);
 
         } catch (GetAllCarExeption e) {
             Command error = new Command(CommandId.ERROR,"error GetAllCars,  " + e.getMessage());
-            SevserFasade.getInstance().sendler(error);
+            ServerSendler.getInstance().send(error);
             System.out.println(e.getMessage());
         }
     }

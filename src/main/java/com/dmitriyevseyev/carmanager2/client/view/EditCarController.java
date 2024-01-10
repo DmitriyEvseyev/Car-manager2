@@ -77,6 +77,9 @@ public class EditCarController {
         if (nameField.getText() == null || nameField.getText().length() == 0) {
             errorMessage += "No valid name!\n";
         }
+        if (String.valueOf(dp.getValue()) == null || String.valueOf(dp.getValue()).length() == 0) {
+            errorMessage += "Invalid date!\n";
+        }
         if (colorField.getText() == null || colorField.getText().length() == 0) {
             errorMessage += "Invalid color!\n";
         }

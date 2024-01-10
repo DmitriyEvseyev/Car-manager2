@@ -4,6 +4,7 @@ import com.dmitriyevseyev.carmanager2.server.controller.Controller;
 import com.dmitriyevseyev.carmanager2.server.exceptions.AddCarExeption;
 import com.dmitriyevseyev.carmanager2.server.exceptions.GetAllCarExeption;
 import com.dmitriyevseyev.carmanager2.server.exceptions.UpdateCarException;
+import com.dmitriyevseyev.carmanager2.server.network.ServerSendler;
 import com.dmitriyevseyev.carmanager2.server.network.SevserFasade;
 import com.dmitriyevseyev.carmanager2.shared.Car;
 import com.dmitriyevseyev.carmanager2.shared.Command;
@@ -19,18 +20,18 @@ public class UpdateCarHandler implements HandlerServer {
             Controller.getInstance().updateCar(car);
         } catch (UpdateCarException e) {
             Command error = new Command(CommandId.ERROR, "error UpdateCarException,  " + e.getMessage());
-            SevserFasade.getInstance().sendler(error);
+            ServerSendler.getInstance().send(error);
             System.out.println(e.getMessage());
         }
 
         try {
             Command com = new Command(CommandId.GET_ALL_CARS, Controller.getInstance().getAllCars());
             System.out.println("Com responce (GetAllCarsHandler/ UpdateCarHandler) - " + com + "\n");
-            SevserFasade.getInstance().sendler(com);
+            ServerSendler.getInstance().send(com);
 
         } catch (GetAllCarExeption e) {
             Command error = new Command(CommandId.ERROR,"error GetAllCars,  " + e.getMessage());
-            SevserFasade.getInstance().sendler(error);
+            ServerSendler.getInstance().send(error);
             System.out.println(e.getMessage());
         }
     }

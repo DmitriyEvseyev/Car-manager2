@@ -2,7 +2,6 @@ package com.dmitriyevseyev.carmanager2.client.network;
 
 import com.dmitriyevseyev.carmanager2.shared.Car;
 import com.dmitriyevseyev.carmanager2.shared.Command;
-import com.dmitriyevseyev.carmanager2.shared.CommandId;
 
 import java.io.*;
 import java.net.Socket;
@@ -17,6 +16,7 @@ public class ClientFasade {
     private Socket socket;
     private ObjectOutputStream objectOutputStream;
     private ObjectInputStream objectInputStream;
+    private SendlerClient sendlerClient;
     private ListenerClient listenerClient;
 
     public static ClientFasade getInstance() {
@@ -45,8 +45,8 @@ public class ClientFasade {
             this.objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
             this.objectInputStream = new ObjectInputStream(socket.getInputStream());
 
-            SendlerClient sendlerCl = SendlerClient.getInstance();
-            sendlerCl.setObjectOutputStream(objectOutputStream);
+            sendlerClient = SendlerClient.getInstance();
+            sendlerClient.setObjectOutputStream(objectOutputStream);
 
             listenerClient = ListenerClient.getInstance();
             listenerClient.setObjectInputStream(objectInputStream);
@@ -67,7 +67,7 @@ public class ClientFasade {
             listenerClient.start();
 
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println("ConnectionClientError. " + e.getMessage());
         }
     }
 }
