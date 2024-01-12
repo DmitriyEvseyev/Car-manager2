@@ -1,7 +1,5 @@
 package com.dmitriyevseyev.carmanager2.server.network;
 
-import com.dmitriyevseyev.carmanager2.client.network.CommandManagerClient;
-import com.dmitriyevseyev.carmanager2.client.network.ListenerClient;
 import com.dmitriyevseyev.carmanager2.shared.Command;
 
 import java.io.IOException;
@@ -9,15 +7,7 @@ import java.io.ObjectInputStream;
 
 public class ServerrListener extends Thread {
     private ObjectInputStream objectInputStream;
-    private static ServerrListener instance;
     private boolean exit;
-
-    public static ServerrListener getInstance() {
-        if (instance == null) {
-            instance = new ServerrListener();
-        }
-        return instance;
-    }
 
     public ServerrListener() {
     }
@@ -45,7 +35,7 @@ public class ServerrListener extends Thread {
             while (exit) {
                 request = (Command) objectInputStream.readObject();
                 System.out.println("request - " + request);
-                CommandManagerServer.getInstance().processCommand(request);
+                ServerCommandManager.getInstance().processCommand(request);
             }
             objectInputStream.close();
         } catch (IOException e) {

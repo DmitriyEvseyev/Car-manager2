@@ -4,21 +4,20 @@ import com.dmitriyevseyev.carmanager2.shared.Command;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 
-public class ListenerClient extends Thread {
+public class ClientListener extends Thread {
     private ObjectInputStream objectInputStream;
-    private static ListenerClient instance;
+    private static ClientListener instance;
     private boolean exit;
 
-    public static ListenerClient getInstance() {
+    public static ClientListener getInstance() {
         if (instance == null) {
-            instance = new ListenerClient();
+            instance = new ClientListener();
         }
         return instance;
     }
 
-    public ListenerClient() {
+    public ClientListener() {
     }
 
     public boolean isExit() {
@@ -43,9 +42,8 @@ public class ListenerClient extends Thread {
             while (exit) {
                 Command responce = (Command) objectInputStream.readObject();
                 System.out.println("ListenerClient + " + responce);
-                CommandManagerClient.getInstance().processCommand(responce);
+                ClientCommandManager.getInstance().processCommand(responce);
             }
-            objectInputStream.close();
         } catch (IOException e) {
             System.out.println("ListenerClient error, IOException. " + e.getMessage());
         } catch (ClassNotFoundException e) {

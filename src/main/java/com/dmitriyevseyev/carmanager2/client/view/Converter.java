@@ -2,17 +2,16 @@ package com.dmitriyevseyev.carmanager2.client.view;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import com.dmitriyevseyev.carmanager2.client.controller.ControllerClient;
+import com.dmitriyevseyev.carmanager2.client.clientController.ClientController;
 import com.dmitriyevseyev.carmanager2.shared.Car;
 
 public class Converter {
     private static Converter instance;
-    private ControllerClient controllerClient;
+    private ClientController controllerClient;
 
     public static Converter getInstance() {
         if (instance == null) {
@@ -22,7 +21,7 @@ public class Converter {
     }
 
     private Converter() {
-        this.controllerClient = ControllerClient.getInstance();
+        this.controllerClient = ClientController.getInstance();
     }
 
     public List<CarFx> convertCarListToCarFxList(List<Car> cars) {

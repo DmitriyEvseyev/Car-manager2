@@ -1,11 +1,10 @@
 package com.dmitriyevseyev.carmanager2.server.network.handlers;
 
-import com.dmitriyevseyev.carmanager2.server.controller.Controller;
+import com.dmitriyevseyev.carmanager2.server.serverController.ServerController;
 import com.dmitriyevseyev.carmanager2.server.exceptions.DeleteCarExeption;
 import com.dmitriyevseyev.carmanager2.server.exceptions.GetAllCarExeption;
 import com.dmitriyevseyev.carmanager2.server.exceptions.NotFoundException;
 import com.dmitriyevseyev.carmanager2.server.network.ServerSendler;
-import com.dmitriyevseyev.carmanager2.server.network.SevserFasade;
 import com.dmitriyevseyev.carmanager2.shared.Command;
 import com.dmitriyevseyev.carmanager2.shared.CommandId;
 
@@ -16,7 +15,7 @@ public class DeleteCarHandler implements HandlerServer {
         Integer id = (Integer) command.getData();
         System.out.println("It will be deleted ID - " + id);
         try {
-            Controller.getInstance().removeCar(id);
+            ServerController.getInstance().removeCar(id);
         } catch (NotFoundException e) {
             System.out.println("There is no this car. " + e.getMessage());
         } catch (DeleteCarExeption e) {
@@ -26,7 +25,7 @@ public class DeleteCarHandler implements HandlerServer {
         }
 
         try {
-            Command com = new Command(CommandId.GET_ALL_CARS, Controller.getInstance().getAllCars());
+            Command com = new Command(CommandId.GET_ALL_CARS, ServerController.getInstance().getAllCars());
             System.out.println("Com responce (GetAllCarsHandler/DeleteCarHandler) - " + com + "\n");
             ServerSendler.getInstance().send(com);
         } catch (GetAllCarExeption e) {

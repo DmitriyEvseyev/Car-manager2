@@ -1,12 +1,7 @@
 package com.dmitriyevseyev.carmanager2.client.network;
 
-import com.dmitriyevseyev.carmanager2.shared.Car;
-import com.dmitriyevseyev.carmanager2.shared.Command;
-
 import java.io.*;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.List;
 
 import static com.dmitriyevseyev.carmanager2.shared.Constants.SERVER_PORT;
 import static com.dmitriyevseyev.carmanager2.shared.Constants.SERVER_URL;
@@ -16,8 +11,8 @@ public class ClientFasade {
     private Socket socket;
     private ObjectOutputStream objectOutputStream;
     private ObjectInputStream objectInputStream;
-    private SendlerClient sendlerClient;
-    private ListenerClient listenerClient;
+    private ClientSendler clientSendler;
+    private ClientListener clientListener;
 
     public static ClientFasade getInstance() {
         if (instance == null) {
@@ -29,46 +24,28 @@ public class ClientFasade {
     private ClientFasade() {
     }
 
-    public ListenerClient getListenerClient() {
-        return listenerClient;
-    }
-
-    public void setListenerClient(ListenerClient listenerClient) {
-        this.listenerClient = listenerClient;
-    }
-
     public void connect() {
         try {
             this.socket = new Socket(SERVER_URL, Integer.parseInt(SERVER_PORT));
             System.out.println("The client is running!");
-
-            this.objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
-            this.objectInputStream = new ObjectInputStream(socket.getInputStream());
-
-            sendlerClient = SendlerClient.getInstance();
-            sendlerClient.setObjectOutputStream(objectOutputStream);
-
-            listenerClient = ListenerClient.getInstance();
-            listenerClient.setObjectInputStream(objectInputStream);
-
-            try {
-                Command responce = (Command) objectInputStream.readObject();
-                List<Car> carL = (List<Car>) responce.getData();
-                HashMap<Integer, Car> map = new HashMap<>();
-                for (Car car : carL) {
-                    map.put(car.getId(), car);
-                }
-                CarMap.getInstance().setCarMap(map);
-                System.out.println("CARMAP FASADE - " + CarMap.getInstance().getCarMap());
-            } catch (ClassNotFoundException e) {
-                System.out.println("ClientFasadeConnectionError. " + e.getMessage());
-            }
-
-            listenerClient.start();
-
         } catch (IOException e) {
             System.out.println("ConnectionClientError. " + e.getMessage());
         }
+        try {
+            this.objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+            this.objectInputStream = new ObjectInputStream(socket.getInputStream());
+
+        } catch (IOException e) {
+            System.out.println("ClientStreamError. " + e.getMessage());
+        }
+        clientSendler = ClientSendler.getInstance();
+        clientSendler.setObjectOutputStream(objectOutputStream);
+
+        clientListener = ClientListener.getInstance();
+        clientListener.setObjectInputStream(objectInputStream);
+
+        clientListener.start();
     }
 }
+
 

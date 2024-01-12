@@ -8,19 +8,19 @@ import com.dmitriyevseyev.carmanager2.shared.CommandId;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CommandManagerServer {
-    private static CommandManagerServer instance;
+public class ServerCommandManager {
+    private static ServerCommandManager instance;
 
-    public static CommandManagerServer getInstance() {
+    public static ServerCommandManager getInstance() {
         if (instance == null) {
-            instance = new CommandManagerServer();
+            instance = new ServerCommandManager();
         }
         return instance;
     }
 
     private Map<Integer, HandlerServer> handlerMap;
 
-    private CommandManagerServer() {
+    private ServerCommandManager() {
         handlerMap = new HashMap<>();
         handlerMap.put(CommandId.GET_ALL_CARS, new GetAllCarsHandler());
         handlerMap.put(CommandId.ADD_CAR, new AddCarHandler());

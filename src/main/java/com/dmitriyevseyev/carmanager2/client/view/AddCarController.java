@@ -1,6 +1,6 @@
 package com.dmitriyevseyev.carmanager2.client.view;
 
-import com.dmitriyevseyev.carmanager2.client.controller.ControllerClient;
+import com.dmitriyevseyev.carmanager2.client.clientController.ClientController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -47,7 +47,7 @@ public class AddCarController {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
         if (isInputValid()) {
             try {
-                ControllerClient.getInstance().addCar(
+                ClientController.getInstance().addCar(
                         nameField.getText(),
                         formatter.parse(date),
                         colorField.getText(),

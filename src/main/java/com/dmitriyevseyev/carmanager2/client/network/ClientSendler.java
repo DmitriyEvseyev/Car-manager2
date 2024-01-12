@@ -5,18 +5,18 @@ import com.dmitriyevseyev.carmanager2.shared.Command;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 
-public class SendlerClient {
+public class ClientSendler {
     private ObjectOutputStream objectOutputStream;
-    private static SendlerClient instance;
+    private static ClientSendler instance;
 
-    public static SendlerClient getInstance() {
+    public static ClientSendler getInstance() {
         if (instance == null) {
-            instance = new SendlerClient();
+            instance = new ClientSendler();
         }
         return instance;
     }
 
-    public SendlerClient() {
+    public ClientSendler() {
     }
 
     public ObjectOutputStream getObjectOutputStream() {

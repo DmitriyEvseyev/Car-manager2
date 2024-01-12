@@ -4,27 +4,25 @@ import com.dmitriyevseyev.carmanager2.client.network.handlers.DisconnectHandlerC
 import com.dmitriyevseyev.carmanager2.client.network.handlers.ErrorHandlerClient;
 import com.dmitriyevseyev.carmanager2.client.network.handlers.GetAllCarsHandlerClient;
 import com.dmitriyevseyev.carmanager2.client.network.handlers.HandlerClient;
-import com.dmitriyevseyev.carmanager2.shared.Car;
 import com.dmitriyevseyev.carmanager2.shared.Command;
 import com.dmitriyevseyev.carmanager2.shared.CommandId;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class CommandManagerClient {
-    private static CommandManagerClient instance;
+public class ClientCommandManager {
+    private static ClientCommandManager instance;
 
-    public static CommandManagerClient getInstance() {
+    public static ClientCommandManager getInstance() {
         if (instance == null) {
-            instance = new CommandManagerClient();
+            instance = new ClientCommandManager();
         }
         return instance;
     }
 
     private Map<Integer, HandlerClient> handlerMap;
 
-    private CommandManagerClient() {
+    private ClientCommandManager() {
         handlerMap = new HashMap<>();
         handlerMap.put(CommandId.GET_ALL_CARS, new GetAllCarsHandlerClient());
         handlerMap.put(CommandId.ERROR, new ErrorHandlerClient());

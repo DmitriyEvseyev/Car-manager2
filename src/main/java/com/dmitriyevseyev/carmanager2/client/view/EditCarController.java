@@ -1,8 +1,6 @@
 package com.dmitriyevseyev.carmanager2.client.view;
 
-import com.dmitriyevseyev.carmanager2.client.controller.ControllerClient;
-import com.dmitriyevseyev.carmanager2.client.view.CarFx;
-import com.dmitriyevseyev.carmanager2.client.view.Converter;
+import com.dmitriyevseyev.carmanager2.client.clientController.ClientController;
 import com.dmitriyevseyev.carmanager2.shared.Car;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -59,7 +57,7 @@ public class EditCarController {
             carFx.setIsAfterCrash(isAfterCrashField.isSelected());
 
             Car car = Converter.getInstance().convertCarFxToCar(carFx);
-            ControllerClient.getInstance().updateCar(car);
+            ClientController.getInstance().updateCar(car);
 
             dialogStage.close();
         }

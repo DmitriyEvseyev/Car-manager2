@@ -1,7 +1,7 @@
 package com.dmitriyevseyev.carmanager2.client.view;
 
-import com.dmitriyevseyev.carmanager2.client.controller.ControllerClient;
-import com.dmitriyevseyev.carmanager2.client.network.CarMap;
+import com.dmitriyevseyev.carmanager2.client.MainClient;
+import com.dmitriyevseyev.carmanager2.client.clientController.ClientController;
 import com.dmitriyevseyev.carmanager2.shared.Car;
 
 import javafx.collections.FXCollections;
@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
 
 public class ControllerView implements Initializable {
     private static ControllerView instance;
-    private ControllerClient controllerClient;
+    private ClientController controllerClient;
     private List<CarFx> rows;
 
     public static ControllerView getInstance() {
@@ -36,7 +36,7 @@ public class ControllerView implements Initializable {
     }
 
     public ControllerView() {
-        this.controllerClient = ControllerClient.getInstance();
+        this.controllerClient = ClientController.getInstance();
         this.rows = new ArrayList<>();
     }
 
@@ -72,7 +72,7 @@ public class ControllerView implements Initializable {
         deleteCar.setDisable(true);
         modifyCar.setDisable(true);
 
-        List<Car> carList = new ArrayList<>(CarMap.getInstance().getCarMap().values());
+        List<Car> carList = ClientController.getInstance().getCarList();
         rows = Converter.getInstance().convertCarListToCarFxList(carList);
 
         System.out.println("rows (ControllerView) - " + rows + "\n");
@@ -135,7 +135,7 @@ public class ControllerView implements Initializable {
         for (CarFx carFx : tableview.getItems()) {
             if (carFx.getCheckBox().isSelected()) {
                 try {
-                    FXMLLoader loader = new FXMLLoader(CLIView.class.getResource("/com.dmitriyevseyev.car-manager2.fxml/carEdit.fxml"));
+                    FXMLLoader loader = new FXMLLoader(MainClient.class.getResource("/com.dmitriyevseyev.car-manager2.fxml/carEdit.fxml"));
                     Scene scene = new Scene(loader.load());
                     Stage dialogStage = new Stage();
                     dialogStage.setTitle("Edit Car");
@@ -157,7 +157,7 @@ public class ControllerView implements Initializable {
     @FXML
     private void addRow() {
         try {
-            FXMLLoader loader = new FXMLLoader(CLIView.class.getResource("/com.dmitriyevseyev.car-manager2.fxml/carAdd.fxml"));
+            FXMLLoader loader = new FXMLLoader(MainClient.class.getResource("/com.dmitriyevseyev.car-manager2.fxml/carAdd.fxml"));
             Scene scene = new Scene(loader.load());
 
             Stage dialogStage = new Stage();
