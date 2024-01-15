@@ -19,15 +19,11 @@ public class ClientSendler {
     public ClientSendler() {
     }
 
-    public ObjectOutputStream getObjectOutputStream() {
-        return objectOutputStream;
-    }
-
     public void setObjectOutputStream(ObjectOutputStream objectOutputStream) {
         this.objectOutputStream = objectOutputStream;
     }
 
-    public void send (Command command) {
+    public void send(Command command) {
         try {
             objectOutputStream.writeObject(command);
             objectOutputStream.flush();
@@ -37,7 +33,7 @@ public class ClientSendler {
         }
     }
 
-    public void close () {
+    public void close() {
         try {
             objectOutputStream.close();
         } catch (IOException e) {

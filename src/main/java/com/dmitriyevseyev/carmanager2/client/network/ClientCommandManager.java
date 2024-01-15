@@ -1,9 +1,6 @@
 package com.dmitriyevseyev.carmanager2.client.network;
 
-import com.dmitriyevseyev.carmanager2.client.network.handlers.DisconnectHandlerClient;
-import com.dmitriyevseyev.carmanager2.client.network.handlers.ErrorHandlerClient;
-import com.dmitriyevseyev.carmanager2.client.network.handlers.GetAllCarsHandlerClient;
-import com.dmitriyevseyev.carmanager2.client.network.handlers.HandlerClient;
+import com.dmitriyevseyev.carmanager2.client.network.handlers.*;
 import com.dmitriyevseyev.carmanager2.shared.Command;
 import com.dmitriyevseyev.carmanager2.shared.CommandId;
 
@@ -27,6 +24,7 @@ public class ClientCommandManager {
         handlerMap.put(CommandId.GET_ALL_CARS, new GetAllCarsHandlerClient());
         handlerMap.put(CommandId.ERROR, new ErrorHandlerClient());
         handlerMap.put(CommandId.DISCONNECT, new DisconnectHandlerClient());
+        handlerMap.put(CommandId.REGISTER_NEW_USER, new RegisterNewUserHandlerClient());
         //handlerMap.put(ServerCommandIdConstants.ALL_DISCONNECT, new AllDisconnectHandler());
     }
 

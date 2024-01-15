@@ -2,18 +2,19 @@ package com.dmitriyevseyev.carmanager2.server.serverController;
 
 import com.dmitriyevseyev.carmanager2.server.dao.DAOCar;
 import com.dmitriyevseyev.carmanager2.server.dao.DAOManager;
+import com.dmitriyevseyev.carmanager2.server.exceptions.carExceptions.*;
 import com.dmitriyevseyev.carmanager2.shared.Car;
-import com.dmitriyevseyev.carmanager2.server.exceptions.*;
+
 import java.sql.SQLException;
 import java.util.*;
 
-public class ServerController {
-    private static ServerController instance;
+public class ServerCarController {
+    private static ServerCarController instance;
     private DAOCar daoCar;
 
-    public static ServerController getInstance() {
+    public static ServerCarController getInstance() {
         if (instance == null) {
-            instance = new ServerController();
+            instance = new ServerCarController();
         }
         return instance;
     }
@@ -22,7 +23,7 @@ public class ServerController {
         return daoCar;
     }
 
-    private ServerController() {
+    private ServerCarController() {
         this.daoCar = DAOManager.getInstance().getDaoCar();
     }
 
@@ -56,7 +57,7 @@ public class ServerController {
         }
     }
 
-    public void updateCar(Car car) throws  UpdateCarException {
+    public void updateCar(Car car) throws UpdateCarException {
         // dao
         Car updateCar;
         try {

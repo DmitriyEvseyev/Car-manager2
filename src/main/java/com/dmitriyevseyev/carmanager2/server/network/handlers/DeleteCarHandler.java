@@ -1,9 +1,9 @@
 package com.dmitriyevseyev.carmanager2.server.network.handlers;
 
-import com.dmitriyevseyev.carmanager2.server.serverController.ServerController;
-import com.dmitriyevseyev.carmanager2.server.exceptions.DeleteCarExeption;
-import com.dmitriyevseyev.carmanager2.server.exceptions.GetAllCarExeption;
-import com.dmitriyevseyev.carmanager2.server.exceptions.NotFoundException;
+import com.dmitriyevseyev.carmanager2.server.serverController.ServerCarController;
+import com.dmitriyevseyev.carmanager2.server.exceptions.carExceptions.DeleteCarExeption;
+import com.dmitriyevseyev.carmanager2.server.exceptions.carExceptions.GetAllCarExeption;
+import com.dmitriyevseyev.carmanager2.server.exceptions.carExceptions.NotFoundException;
 import com.dmitriyevseyev.carmanager2.server.network.ServerSendler;
 import com.dmitriyevseyev.carmanager2.shared.Command;
 import com.dmitriyevseyev.carmanager2.shared.CommandId;
@@ -15,7 +15,7 @@ public class DeleteCarHandler implements HandlerServer {
         Integer id = (Integer) command.getData();
         System.out.println("It will be deleted ID - " + id);
         try {
-            ServerController.getInstance().removeCar(id);
+            ServerCarController.getInstance().removeCar(id);
         } catch (NotFoundException e) {
             System.out.println("There is no this car. " + e.getMessage());
         } catch (DeleteCarExeption e) {
@@ -25,7 +25,7 @@ public class DeleteCarHandler implements HandlerServer {
         }
 
         try {
-            Command com = new Command(CommandId.GET_ALL_CARS, ServerController.getInstance().getAllCars());
+            Command com = new Command(CommandId.GET_ALL_CARS, ServerCarController.getInstance().getAllCars());
             System.out.println("Com responce (GetAllCarsHandler/DeleteCarHandler) - " + com + "\n");
             ServerSendler.getInstance().send(com);
         } catch (GetAllCarExeption e) {
@@ -33,6 +33,5 @@ public class DeleteCarHandler implements HandlerServer {
             ServerSendler.getInstance().send(error);
             System.out.println(e.getMessage());
         }
-
     }
 }

@@ -27,6 +27,8 @@ public class ServerCommandManager {
         handlerMap.put(CommandId.DELETE_CAR, new DeleteCarHandler());
         handlerMap.put(CommandId.UPDATE_CAR, new UpdateCarHandler());
         handlerMap.put(CommandId.DISCONNECT, new DisconnectHandler());
+        handlerMap.put(CommandId.AUTHORIZATION, new AuthorizationHandler());
+        handlerMap.put(CommandId.NEW_USER, new NewUserHandler());
     }
 
     public void processCommand(Command command) {

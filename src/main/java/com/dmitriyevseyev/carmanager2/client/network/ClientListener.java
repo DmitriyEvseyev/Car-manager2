@@ -20,16 +20,8 @@ public class ClientListener extends Thread {
     public ClientListener() {
     }
 
-    public boolean isExit() {
-        return exit;
-    }
-
     public void setExit(boolean exit) {
         this.exit = exit;
-    }
-
-    public ObjectInputStream getObjectInputStream() {
-        return objectInputStream;
     }
 
     public void setObjectInputStream(ObjectInputStream objectInputStream) {

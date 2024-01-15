@@ -4,7 +4,6 @@ import com.dmitriyevseyev.carmanager2.shared.Car;
 
 import java.sql.*;
 import java.util.*;
-import java.util.Date;
 
 public class DAOCar implements DAOInterface {
     private static DAOCar instance;
@@ -93,15 +92,14 @@ public class DAOCar implements DAOInterface {
 
 
     private Car createCarByResultSet(ResultSet rs) throws SQLException {
-        Car Car = null;
         rs.next();
-        Car = Car.builder().id(rs.getInt("Id"))
+        Car car = Car.builder().id(rs.getInt("Id"))
                 .name(rs.getString("Name"))
                 .color(rs.getString("Color"))
                 .date(rs.getDate("Date"))
                 .isAfterCrash(rs.getBoolean("isAfterCrash"))
                 .build();
-        return Car;
+        return car;
     }
 
     private List<Car> createListByResultSet(ResultSet rs) throws SQLException {

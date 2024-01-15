@@ -57,7 +57,7 @@ public class SevserFacade {
             serverSendler = ServerSendler.getInstance();
             serverSendler.setObjectOutputStream(objectOutputStream);
 
-            ServerCommandManager.getInstance().processCommand(new Command(CommandId.GET_ALL_CARS, ""));
+           // ServerCommandManager.getInstance().processCommand(new Command(CommandId.GET_ALL_CARS, ""));
 
             serverrListener = new ServerrListener();
             serverrListener.setObjectInputStream(objectInputStream);

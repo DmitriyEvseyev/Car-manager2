@@ -91,7 +91,6 @@ public class Car implements Serializable {
                 '}';
     }
 
-
     public static Builder builder() {
         return new Builder();
     }

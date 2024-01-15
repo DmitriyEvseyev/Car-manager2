@@ -31,21 +31,12 @@ public class ControllerView implements Initializable {
         if (instance == null) {
             instance = new ControllerView();
         }
-
         return instance;
     }
 
     public ControllerView() {
         this.controllerClient = ClientController.getInstance();
         this.rows = new ArrayList<>();
-    }
-
-    public List<CarFx> getRows() {
-        return rows;
-    }
-
-    public void setRows(List<CarFx> rows) {
-        this.rows = rows;
     }
 
     @FXML

@@ -12,16 +12,8 @@ public class ServerrListener extends Thread {
     public ServerrListener() {
     }
 
-    public boolean isExit() {
-        return exit;
-    }
-
     public void setExit(boolean exit) {
         this.exit = exit;
-    }
-
-    public ObjectInputStream getObjectInputStream() {
-        return objectInputStream;
     }
 
     public void setObjectInputStream(ObjectInputStream objectInputStream) {
@@ -30,14 +22,12 @@ public class ServerrListener extends Thread {
 
     public void run() {
         exit = true;
-        Command request = null;
         try {
             while (exit) {
-                request = (Command) objectInputStream.readObject();
+                Command request = (Command) objectInputStream.readObject();
                 System.out.println("request - " + request);
                 ServerCommandManager.getInstance().processCommand(request);
             }
-            objectInputStream.close();
         } catch (IOException e) {
             System.out.println("ReadObjectServerError. " + e.getMessage());
         } catch (ClassNotFoundException e) {
