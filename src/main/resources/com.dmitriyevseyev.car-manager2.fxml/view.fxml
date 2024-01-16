@@ -27,5 +27,7 @@
                 <Font size="22.0" />
             </font>
         </Label>
+      <Button layoutX="465.0" layoutY="16.0" mnemonicParsing="false" onAction="#login" text="Login" />
+      <Button layoutX="523.0" layoutY="16.0" mnemonicParsing="false" onAction="#register" text="Registration" />
     </children>
 </Pane>

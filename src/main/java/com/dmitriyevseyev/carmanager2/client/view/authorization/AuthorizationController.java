@@ -16,7 +16,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class AuthorizationController implements Initializable {
-    private static AuthorizationController instance;
     private Stage dialogStage;
 
     @FXML
@@ -37,17 +36,13 @@ public class AuthorizationController implements Initializable {
     private void handleOk() {
         if (isInputValid()) {
             String name = userName.getText();
-            System.out.println(name);
             String pass = password.getText();
-            System.out.println(pass);
             User user = User.builder().
                     userName(name).
                     password(pass).
                     build();
-            /*User user = new User(userName.getText(),
-                    password.getText());
-                                 */
             System.out.println(user);
+
             ClientSendler.getInstance().send(new Command(CommandId.AUTHORIZATION, user));
             dialogStage.close();
         }

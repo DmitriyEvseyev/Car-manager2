@@ -2,6 +2,8 @@ package com.dmitriyevseyev.carmanager2.client.view;
 
 import com.dmitriyevseyev.carmanager2.client.MainClient;
 import com.dmitriyevseyev.carmanager2.client.clientController.ClientController;
+import com.dmitriyevseyev.carmanager2.client.view.authorization.AuthorizationController;
+import com.dmitriyevseyev.carmanager2.client.view.authorization.NewUserController;
 import com.dmitriyevseyev.carmanager2.shared.Car;
 
 import javafx.collections.FXCollections;
@@ -110,6 +112,47 @@ public class ControllerView implements Initializable {
         actionColumn.setCellValueFactory(new PropertyValueFactory("checkBox"));
 
         RefreshHelper.getInstance().setControllerView(this);
+    }
+
+    @FXML
+    private void login() {
+        try {
+            FXMLLoader loader = new FXMLLoader(MainClient.
+                    class.getResource("/com.dmitriyevseyev.car-manager2.fxml/authorization.fxml"));
+            Scene scene = new Scene(loader.load());
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Authorization");
+            dialogStage.setScene(scene);
+
+            AuthorizationController authorizationController = loader.getController();
+            authorizationController.setDialogStage(dialogStage);
+
+            dialogStage.showAndWait();
+
+        } catch (IOException e) {
+            System.out.println("loginError. " + e.getMessage());
+        }
+    }
+
+    @FXML
+    public void register() {
+        try {
+            FXMLLoader loader = new FXMLLoader(MainClient.class.getResource("/com.dmitriyevseyev.car-manager2.fxml/newUser.fxml"));
+            Scene scene = new Scene(loader.load());
+
+            Stage dialogStage = new Stage();
+            dialogStage.setTitle("Registering a new user.");
+            dialogStage.setScene(scene);
+
+            NewUserController newUserController = loader.getController();
+            newUserController.setDialogStage(dialogStage);
+
+            dialogStage.showAndWait();
+
+        } catch (IOException e) {
+            System.out.println("registerError. " + e.getMessage());
+        }
     }
 
     @FXML
