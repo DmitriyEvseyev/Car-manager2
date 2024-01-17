@@ -2,8 +2,6 @@ package com.dmitriyevseyev.carmanager2.client;
 
 import com.dmitriyevseyev.carmanager2.client.network.ClientFasade;
 import com.dmitriyevseyev.carmanager2.client.network.ClientSendler;
-import com.dmitriyevseyev.carmanager2.client.view.AddCarController;
-import com.dmitriyevseyev.carmanager2.client.view.authorization.AuthorizationController;
 import com.dmitriyevseyev.carmanager2.shared.Command;
 import com.dmitriyevseyev.carmanager2.shared.CommandId;
 import javafx.application.Application;

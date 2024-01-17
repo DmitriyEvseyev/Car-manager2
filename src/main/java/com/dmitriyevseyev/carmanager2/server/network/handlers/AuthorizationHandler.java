@@ -12,12 +12,8 @@ public class AuthorizationHandler implements HandlerServer {
     @Override
     public void handle(Command command) {
         User user = (User) command.getData();
-        System.out.println("User from client - " + user);
-        System.out.println("111");
 
         boolean isCorrect = ServerUserController.getInstance().isUserExistServer(user);
-
-        System.out.println(ServerUserController.getInstance().isUserExistServer(user));
         System.out.println("boolean - " + isCorrect);
 
         if (isCorrect) {

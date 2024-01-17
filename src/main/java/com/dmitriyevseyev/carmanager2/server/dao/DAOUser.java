@@ -1,6 +1,5 @@
 package com.dmitriyevseyev.carmanager2.server.dao;
 
-import com.dmitriyevseyev.carmanager2.shared.Car;
 import com.dmitriyevseyev.carmanager2.shared.User;
 
 import java.sql.*;
@@ -118,7 +117,7 @@ public class DAOUser {
         boolean userExist;
         String sqlExistUser = "SELECT * FROM USERS WHERE USERNAME = ?";
         try (PreparedStatement stm = connection.prepareStatement(sqlExistUser)) {
-            stm.setString(1, "Password");
+            stm.setString(1, userName);
             ResultSet rs = stm.executeQuery();
             if (rs.next()) {
                 userExist = true;
@@ -134,12 +133,13 @@ public class DAOUser {
         if (isUserExist(userName)) {
             String sqlGetPassword = "SELECT PASSWORD FROM USERS WHERE USERNAME = ?";
             try (PreparedStatement stm = connection.prepareStatement(sqlGetPassword)) {
-                stm.setString(1, "UserName");
+                stm.setString(1, userName);
                 ResultSet rs = stm.executeQuery();
-                password = rs.getString("Password");
+                while (rs.next()) {
+                    password = rs.getString("PASSWORD");
+                }
             }
-        }
-        return password;
+        }return password;
     }
 }
 
