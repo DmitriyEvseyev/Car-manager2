@@ -1,8 +1,8 @@
 package com.dmitriyevseyev.carmanager2.client.network;
 
 import com.dmitriyevseyev.carmanager2.client.network.handlers.*;
-import com.dmitriyevseyev.carmanager2.shared.Command;
-import com.dmitriyevseyev.carmanager2.shared.CommandId;
+import com.dmitriyevseyev.carmanager2.shared.model.Command;
+import com.dmitriyevseyev.carmanager2.shared.model.CommandId;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,14 +17,16 @@ public class ClientCommandManager {
         return instance;
     }
 
-    private Map<Integer, HandlerClient> handlerMap;
+    private Map<Integer, ClientHandler> handlerMap;
 
     private ClientCommandManager() {
         handlerMap = new HashMap<>();
-        handlerMap.put(CommandId.GET_ALL_CARS, new GetAllCarsHandlerClient());
-        handlerMap.put(CommandId.ERROR, new ErrorHandlerClient());
-        handlerMap.put(CommandId.DISCONNECT, new DisconnectHandlerClient());
-        handlerMap.put(CommandId.REGISTER_NEW_USER, new RegisterNewUserHandlerClient());
+        handlerMap.put(CommandId.GET_ALL_CARS, new GetAllCarsClientHandler());
+        handlerMap.put(CommandId.ERROR, new ErrorClientHandler());
+        handlerMap.put(CommandId.DISCONNECT, new DisconnectClientHandler());
+        handlerMap.put(CommandId.REGISTER_NEW_USER, new RegisterNewUserClientHandler());
+        handlerMap.put(CommandId.GET_USER_ID, new IdUserClientHandler());
+
         //handlerMap.put(ServerCommandIdConstants.ALL_DISCONNECT, new AllDisconnectHandler());
     }
 

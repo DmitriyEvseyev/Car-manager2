@@ -1,6 +1,6 @@
 package com.dmitriyevseyev.carmanager2.client.network;
 
-import com.dmitriyevseyev.carmanager2.shared.Command;
+import com.dmitriyevseyev.carmanager2.shared.model.Command;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;

@@ -3,8 +3,8 @@ package com.dmitriyevseyev.carmanager2.client.network;
 import java.io.*;
 import java.net.Socket;
 
-import static com.dmitriyevseyev.carmanager2.shared.Constants.SERVER_PORT;
-import static com.dmitriyevseyev.carmanager2.shared.Constants.SERVER_URL;
+import static com.dmitriyevseyev.carmanager2.shared.utils.Constants.SERVER_PORT;
+import static com.dmitriyevseyev.carmanager2.shared.utils.Constants.SERVER_URL;
 
 public class ClientFasade {
     private static ClientFasade instance;

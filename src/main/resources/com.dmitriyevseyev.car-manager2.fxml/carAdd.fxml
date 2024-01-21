@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="316.0" prefWidth="495.0" xmlns="http://javafx.com/javafx/20.0.1"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dmitriyevseyev.carmanager2.client.view.AddCarController">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dmitriyevseyev.carmanager2.client.view.controller.AddCarController">
     <children>
         <GridPane layoutX="19.0" layoutY="10.0" prefHeight="242.0" prefWidth="455.0">
             <columnConstraints>

@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="253.0" prefWidth="485.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dmitriyevseyev.carmanager2.client.view.authorization.AuthorizationController">
+<AnchorPane prefHeight="253.0" prefWidth="485.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dmitriyevseyev.carmanager2.client.view.controller.AuthorizationController">
    <children>
       <Button layoutX="203.0" layoutY="208.0" mnemonicParsing="false" onAction="#handleOk" prefHeight="31.0" prefWidth="79.0" text="OK">
          <font>
