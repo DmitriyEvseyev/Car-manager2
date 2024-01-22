@@ -76,9 +76,14 @@ public class ServerFacade {
 
            // newClient = new Thread(new MonoClientThread(clientSocket));
             monoClientThread = new MonoClientThread(clientSocket);
-            executorService.execute(monoClientThread);
+            System.out.println("monoClientThread - " + monoClientThread);
+            try {
+                executorService.execute(monoClientThread);
+            } catch (Exception e ) {
+                System.out.println("executorService.execute(monoClientThread) --- " + e.getMessage());
+            }
             System.out.println("monoClientThread  facade - " + monoClientThread);
-            executorService.shutdown();
+           // executorService.shutdown();
             /*new Thread(() -> {
                 MonoClientThread thread = new MonoClientThread(clientSocket);
                 executorService.execute(thread);
