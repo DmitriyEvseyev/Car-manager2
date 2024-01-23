@@ -29,10 +29,11 @@ public class ServerUserController {
     }
 
     public boolean isUserExistServer(User user) {
+        PasswordVerificationController passwordVerificationController =  PasswordVerificationController.getInstance();
         boolean isCorrect = false;
         try {
-            String password = user.getPassword();
-            String passwordServer = userDAO.getPassword(user.getUserName());
+            String password = passwordVerificationController.getHashPassword(user.getPassword());
+            String passwordServer = passwordVerificationController.getHashPassword(userDAO.getPassword(user.getUserName()));
             if (password.equals(passwordServer)) {
                 isCorrect = true;
             }

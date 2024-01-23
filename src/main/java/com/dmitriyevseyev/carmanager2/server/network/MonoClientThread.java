@@ -1,6 +1,5 @@
 package com.dmitriyevseyev.carmanager2.server.network;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -19,16 +18,8 @@ public class MonoClientThread extends Thread {
         this.clientSocket = client;
     }
 
-    public ServerListener getServerListener() {
-        return serverListener;
-    }
-
     public ServerSendler getServerSendler() {
         return serverSendler;
-    }
-
-    public void setExit(boolean exit) {
-        this.exit = exit;
     }
 
     public void disconnectClient() {
@@ -46,7 +37,7 @@ public class MonoClientThread extends Thread {
             objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
             objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
 
-            serverSendler = ServerSendler.getInstance();
+            serverSendler = new ServerSendler();
             serverSendler.setObjectOutputStream(objectOutputStream);
 
             serverListener = new ServerListener();
