@@ -4,9 +4,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="472.0" prefWidth="617.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dmitriyevseyev.carmanager2.client.view.ControllerView">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="472.0" prefWidth="617.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.dmitriyevseyev.carmanager2.client.view.controller.ViewController">
     <children>
-        <Button fx:id="add" layoutX="103.0" layoutY="409.0" mnemonicParsing="false" onAction="#addRow" prefHeight="25.0" prefWidth="99.0" text="Создать" />
+        <Button fx:id="addCar" disable="true" layoutX="103.0" layoutY="409.0" mnemonicParsing="false" onAction="#addRow" prefHeight="25.0" prefWidth="99.0" text="Создать" />
         <Button fx:id="deleteCar" disable="true" layoutX="415.0" layoutY="409.0" mnemonicParsing="false" onAction="#deleteSelectedRows" prefHeight="25.0" prefWidth="99.0" text="Удалить" />
         <Button fx:id="modifyCar" disable="true" layoutX="260.0" layoutY="409.0" mnemonicParsing="false" onAction="#editSelectedRow" prefHeight="25.0" prefWidth="99.0" text="Редактировать" />
         <TableView fx:id="tableview" accessibleRole="IMAGE_VIEW" editable="true" layoutX="43.0" layoutY="81.0" prefHeight="288.0" prefWidth="532.0">
@@ -27,5 +27,7 @@
                 <Font size="22.0" />
             </font>
         </Label>
+      <Button fx:id="login" layoutX="465.0" layoutY="16.0" mnemonicParsing="false" onAction="#login" text="Login" />
+      <Button fx:id="registration" layoutX="523.0" layoutY="16.0" mnemonicParsing="false" onAction="#register" text="Registration" />
     </children>
 </Pane>
