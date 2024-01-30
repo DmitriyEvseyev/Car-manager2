@@ -12,8 +12,8 @@ public class DisconnectServerHandler implements ServerHandler {
         MonoClientThread monoClient = ServerFacade.getInstance().getThreadHashMap().get(idUser);
         Command com = new Command(CommandId.DISCONNECT, "");
 
-        monoClient.disconnectClient();
         monoClient.getServerSendler().send(com);
+        monoClient.disconnectClient();
 
         ServerFacade.getInstance().getThreadHashMap().remove(idUser);
     }

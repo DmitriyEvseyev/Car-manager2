@@ -1,4 +1,4 @@
-package com.dmitriyevseyev.carmanager2.server.controller;
+package com.dmitriyevseyev.carmanager2.shared.utils;
 // import javax.xml.bind.DatatypeConverter;
 
 import java.nio.charset.StandardCharsets;
@@ -6,17 +6,17 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 
-public class PasswordVerificationController {
-    private static PasswordVerificationController instance;
+public class PasswordHashGenerator {
+    private static PasswordHashGenerator instance;
 
-    public static PasswordVerificationController getInstance() {
+    public static PasswordHashGenerator getInstance() {
         if (instance == null) {
-            instance = new PasswordVerificationController();
+            instance = new PasswordHashGenerator();
         }
         return instance;
     }
 
-    public PasswordVerificationController() {
+    public PasswordHashGenerator() {
     }
 
     public String getHashPassword(String pass) {

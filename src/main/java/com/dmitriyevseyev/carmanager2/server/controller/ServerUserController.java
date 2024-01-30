@@ -7,6 +7,7 @@ import com.dmitriyevseyev.carmanager2.server.exceptions.car.DeleteCarExeption;
 import com.dmitriyevseyev.carmanager2.server.exceptions.car.GetAllCarExeption;
 import com.dmitriyevseyev.carmanager2.server.exceptions.car.NotFoundException;
 import com.dmitriyevseyev.carmanager2.shared.model.User;
+import com.dmitriyevseyev.carmanager2.shared.utils.PasswordHashGenerator;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -29,11 +30,11 @@ public class ServerUserController {
     }
 
     public boolean isUserExistServer(User user) {
-        PasswordVerificationController passwordVerificationController =  PasswordVerificationController.getInstance();
+        PasswordHashGenerator passwordHashGenerator =  PasswordHashGenerator.getInstance();
         boolean isCorrect = false;
         try {
-            String password = passwordVerificationController.getHashPassword(user.getPassword());
-            String passwordServer = passwordVerificationController.getHashPassword(userDAO.getPassword(user.getUserName()));
+            String password = passwordHashGenerator.getHashPassword(user.getPassword());
+            String passwordServer = passwordHashGenerator.getHashPassword(userDAO.getPassword(user.getUserName()));
             if (password.equals(passwordServer)) {
                 isCorrect = true;
             }

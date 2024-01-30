@@ -19,10 +19,6 @@ public class ServerSendler {
     public ServerSendler() {
     }
 
-    public ObjectOutputStream getObjectOutputStream() {
-        return objectOutputStream;
-    }
-
     public void setObjectOutputStream(ObjectOutputStream objectOutputStream) {
         this.objectOutputStream = objectOutputStream;
     }
@@ -39,7 +35,9 @@ public class ServerSendler {
 
     public void close () {
         try {
+            System.out.println("ServerSendler closed.");
             objectOutputStream.close();
+
         } catch (IOException e) {
             System.out.println("ServerSendlerError/ objectOutputStreamClose. " + e.getMessage());
         }

@@ -13,10 +13,9 @@ public class ServerFacade {
     private static ServerFacade instance;
     private static Socket clientSocket;
     private static ServerSocket server;
-    private Integer idUser;
     private HashMap<Integer, MonoClientThread> threadHashMap;
     private ExecutorService executorService;
-    private MonoClientThread monoClientThread;
+    private  MonoClientThread monoClientThread;
 
     public static ServerFacade getInstance() {
         if (instance == null) {
@@ -30,7 +29,7 @@ public class ServerFacade {
         executorService = Executors.newFixedThreadPool(7);
     }
 
-    public HashMap<Integer, MonoClientThread> getThreadHashMap() {
+    public synchronized HashMap<Integer, MonoClientThread> getThreadHashMap() {
         return threadHashMap;
     }
 
@@ -38,26 +37,7 @@ public class ServerFacade {
         return monoClientThread;
     }
 
-    /* public void setIdUser(Integer idUser) {
-        this.idUser = idUser;
-    }
-
-    public Thread getThread(int idUser) {
-        return this.threadHashMap.get(idUser);
-    }
-
-    /*public Thread getNewClient() {
-        return newClient;
-    }
-     */
-
-    /*public void disconnectClient() {
-        serverListener.setExit(false);
-        serverListener.interrupt();
-    }
-     */
-
-    public void connect() {
+   public void connect() {
         try {
             server = new ServerSocket(Integer.parseInt(SERVER_PORT));
             System.out.println("The server is running!");
@@ -74,7 +54,6 @@ public class ServerFacade {
                 System.out.println("clientConnectedError. " + e.getMessage());
             }
 
-           // newClient = new Thread(new MonoClientThread(clientSocket));
             monoClientThread = new MonoClientThread(clientSocket);
             System.out.println("monoClientThread - " + monoClientThread);
             try {
@@ -83,7 +62,7 @@ public class ServerFacade {
                 System.out.println("executorService.execute(monoClientThread) --- " + e.getMessage());
             }
             System.out.println("monoClientThread  facade - " + monoClientThread);
-           // executorService.shutdown();
+          // executorService.shutdown();
             /*new Thread(() -> {
                 MonoClientThread thread = new MonoClientThread(clientSocket);
                 executorService.execute(thread);

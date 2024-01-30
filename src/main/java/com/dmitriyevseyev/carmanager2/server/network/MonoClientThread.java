@@ -25,6 +25,11 @@ public class MonoClientThread extends Thread {
     public void disconnectClient() {
         serverListener.setExit(false);
         serverListener.interrupt();
+        serverSendler.close();
+        try {
+            clientSocket.close();
+        } catch (IOException ignored) {
+        }
     }
 
     @Override

@@ -31,6 +31,7 @@ public class ServerListener extends Thread {
                     System.out.println("request - " + request);
                     ServerCommandManager.getInstance().processCommand(request);
                 }
+            System.out.println("ServerListener closed.");
           //  }
         } catch (InterruptedException ignored) {
         } catch (IOException e) {
