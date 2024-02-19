@@ -46,7 +46,7 @@ public class Converter {
 
     public Car convertCarFxToCar(CarFx carFx) {
         Car car = new Car();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
         try {
             car = Car.builder()
                     .id(carFx.getId())

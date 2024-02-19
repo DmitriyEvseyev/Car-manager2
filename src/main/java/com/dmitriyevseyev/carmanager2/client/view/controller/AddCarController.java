@@ -44,7 +44,7 @@ public class AddCarController {
 
     @FXML
     private void handleOk() {
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-mm-dd", Locale.ENGLISH);
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
         if (isInputValid()) {
             try {
                 ClientController.getInstance().addCar(
