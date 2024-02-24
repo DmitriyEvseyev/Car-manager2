@@ -1,7 +1,7 @@
 package com.dmitriyevseyev.carmanager2.client;
 
 import com.dmitriyevseyev.carmanager2.client.controller.ClientController;
-import com.dmitriyevseyev.carmanager2.client.network.ClientFasade;
+import com.dmitriyevseyev.carmanager2.client.network.ClientFacade;
 import com.dmitriyevseyev.carmanager2.client.network.ClientSendler;
 import com.dmitriyevseyev.carmanager2.shared.model.Command;
 import com.dmitriyevseyev.carmanager2.shared.model.CommandId;
@@ -30,7 +30,7 @@ public class Client extends javafx.application.Application {
         stage.setTitle("Car manager");
         stage.setScene(new Scene(root));
         stage.show();
-        ClientFasade.getInstance().connect();
+        ClientFacade.getInstance().connect();
     }
 
     @Override

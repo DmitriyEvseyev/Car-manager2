@@ -6,22 +6,22 @@ import java.net.Socket;
 import static com.dmitriyevseyev.carmanager2.shared.utils.Constants.SERVER_PORT;
 import static com.dmitriyevseyev.carmanager2.shared.utils.Constants.SERVER_URL;
 
-public class ClientFasade {
-    private static ClientFasade instance;
+public class ClientFacade {
+    private static ClientFacade instance;
     private Socket socket;
     private ObjectOutputStream objectOutputStream;
     private ObjectInputStream objectInputStream;
     private ClientSendler clientSendler;
     private ClientListener clientListener;
 
-    public static ClientFasade getInstance() {
+    public static ClientFacade getInstance() {
         if (instance == null) {
-            instance = new ClientFasade();
+            instance = new ClientFacade();
         }
         return instance;
     }
 
-    private ClientFasade() {
+    private ClientFacade() {
     }
 
     public void connect() {
